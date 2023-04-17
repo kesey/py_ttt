@@ -11,7 +11,7 @@ class Cassette(models.Model):
     lien_soundcloud = models.CharField(max_length=255, blank=True, null=True)
     lien_youtube = models.CharField(max_length=255, blank=True, null=True)
     date_sortie = models.DateField(blank=True, null=True)
-    image_pochette = models.ImageField(verbose_name="image de la pochette")
+    image_pochette = models.ImageField(verbose_name="image de la pochette", null=True)
     download = models.CharField(max_length=50, blank=True, null=True)
     nombre_de_download = models.IntegerField()
     prix = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
@@ -29,8 +29,7 @@ class Cassette(models.Model):
 class Artiste(models.Model):
     id_artiste = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=50, blank=True, null=True)
-    # image_artiste = models.CharField(max_length=50, blank=True, null=True)
-    image_artiste = models.ImageField(verbose_name="image de l'artiste")
+    image_artiste = models.ImageField(verbose_name="image de l'artiste", null=True)
     bio = tinymce_models.HTMLField(blank=True, null=True)
     lien_artiste = models.CharField(max_length=255, blank=True, null=True)
     suppr = models.IntegerField(default=0)
@@ -59,7 +58,7 @@ class Event(models.Model):
     lieu = models.CharField(max_length=255, blank=True, null=True)
     titre_event = models.CharField(max_length=255, blank=True, null=True)
     description_event = tinymce_models.HTMLField(blank=True, null=True)
-    image_event = models.ImageField(verbose_name="image de l'event")
+    image_event = models.ImageField(verbose_name="image de l'event", null=True)
     suppr = models.IntegerField(default=0)
 
     class Meta:
