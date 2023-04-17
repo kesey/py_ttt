@@ -1,3 +1,6 @@
 from django.contrib import admin
+from ttt_back.models import Client, Exemplaire, EtatExemplaire
 
-# Register your models here.
+admin.site.register(Client)
+admin.site.register(Exemplaire)
+admin.site.register(EtatExemplaire)

@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 
-# Create your views here.
+def home(request):
+    return render(
+        request,
+        "ttt_front/home.html"
+    )
