@@ -13,11 +13,11 @@ class Cassette(models.Model):
     date_sortie = models.DateField(blank=True, null=True)
     image_pochette = models.ImageField(verbose_name="image de la pochette", null=True)
     download = models.CharField(max_length=50, blank=True, null=True)
-    nombre_de_download = models.IntegerField()
+    nombre_de_download = models.IntegerField(default=0)
     prix = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
-    sold_out = models.IntegerField(default=0)
-    suppr = models.IntegerField(default=0)
-    publier = models.IntegerField(blank=True, null=True, default=0)
+    sold_out = models.BooleanField(default=False)
+    suppr = models.BooleanField(default=False)
+    publier = models.BooleanField(default=False)
     nombre_exemplaire = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -32,25 +32,15 @@ class Artiste(models.Model):
     image_artiste = models.ImageField(verbose_name="image de l'artiste", null=True)
     bio = tinymce_models.HTMLField(blank=True, null=True)
     lien_artiste = models.CharField(max_length=255, blank=True, null=True)
-    suppr = models.IntegerField(default=0)
+    suppr = models.BooleanField(default=False)
 
-    #  cassette = models.ManyToManyField(Cassette, through="Produire") # , related_name="production")
+    cassette = models.ManyToManyField(Cassette, verbose_name="a produit") # , related_name="production")
 
     class Meta:
         db_table = 'artiste'
     
     def __str__(self):
         return self.nom
-
-class Produire(models.Model):
-    id_cassette = models.PositiveIntegerField(primary_key=True)  # The composite primary key (id_cassette, id_artiste) found, that is not supported. The first column is selected.
-    id_artiste = models.PositiveIntegerField()
-    # id_cassette = models.ForeignKey(Cassette, on_delete=models.DO_NOTHING)
-    # id_artiste = models.ForeignKey(Artiste, on_delete=models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'produire'
-        unique_together = ('id_cassette', 'id_artiste')
 
 class Event(models.Model):
     id_event = models.AutoField(primary_key=True)
@@ -59,7 +49,7 @@ class Event(models.Model):
     titre_event = models.CharField(max_length=255, blank=True, null=True)
     description_event = tinymce_models.HTMLField(blank=True, null=True)
     image_event = models.ImageField(verbose_name="image de l'event", null=True)
-    suppr = models.IntegerField(default=0)
+    suppr = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'event'
