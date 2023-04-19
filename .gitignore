@@ -1,4 +1,5 @@
 # ENV 
 __pycache__ 
+media/file_cassette
 db.sqlite3
 xmichaut2_thirdtypetapes.sql
