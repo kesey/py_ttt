@@ -16,10 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from adminplus.sites import AdminSitePlus
+from django.conf import settings
+from django.conf.urls.static import static
 import ttt_front.views
+import ttt_back.views
+
+admin.site = AdminSitePlus()
+admin.autodiscover()
 
 urlpatterns = [
-    path('tinymce/', include('tinymce.urls')),
+    path('tinymce/', include('tinymce.urls')), 
+    path('admin/gestion_exemplaire/<int:id_cassette>/', ttt_back.views.Gestion_exemplaire_detail.as_view(), name="gestion_exemplaire_detail"),
+    path('admin/gestion_exemplaire/', ttt_back.views.gestion_exemplaire, name="gestion_exemplaire"),
     path('admin/', admin.site.urls),
     path('', ttt_front.views.home, name='home')
 ]
+
+if settings.DEBUG: # serve media in dev environnement (don't use this in production)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

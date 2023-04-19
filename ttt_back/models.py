@@ -36,7 +36,7 @@ class Exemplaire(models.Model):
     montant_frais_de_port = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     frais_de_port_rembourses = models.BooleanField(default=False)
     id_vendeur = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
-    id_cassette = models.ForeignKey(Cassette, models.DO_NOTHING, blank=True, null=True)
+    id_cassette = models.ForeignKey(Cassette, models.CASCADE, blank=True, null=True)
     id_etat = models.ForeignKey(EtatExemplaire, models.DO_NOTHING, blank=True, null=True)
     id_client = models.ForeignKey(Client, models.DO_NOTHING, blank=True, null=True)
 

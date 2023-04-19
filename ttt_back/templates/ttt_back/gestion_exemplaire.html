@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Gestion Exemplaires</h2>
+    <h2>Liste des Cassettes</h2>
+    <ul>
+        {% for cassette in page %}
+        <li>
+            <a href="{% url 'gestion_exemplaire_detail' cassette.id_cassette %}">
+                {{cassette.code}} {{ cassette.titre }}</li>
+            </a>    
+        </li>
+        {% endfor %}
+    </ul>
+    {% include 'ttt_back/partials/pagination_snippet.html' %}
 {% endblock content %}
