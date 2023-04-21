@@ -6,15 +6,8 @@
     <div>
         <a href="{% url 'gestion_exemplaire' %}">Retour à la liste des cassettes</a>
     </div>
-    {{ vendeurs_stat }}
-    {{ exemplaires_stat }}
-    {{ vendeurs_stat.Fabien.a_vendu_pour }}
-    {{ cassette_stat.nombre_de_download }}
-    <ul>
-        {% for vendeur in vendeurs_stat %}
-            <li>{{ vendeur }} à vendu pour {{ vendeur.a_vendu_pour }}</li>
-        {% endfor %}
-    </ul>
+    <h2>{{ cassette_stat.code }} {{ cassette_stat.titre }}</h2>
+    {% include 'ttt_back/partials/stat_snippet.html' %}
     <form method="post">
         {% csrf_token %}
         {{ formset.non_form_errors.as_ul }}

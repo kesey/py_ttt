@@ -1,0 +1,29 @@
+{% load ttt_back_extras %}
+
+<div class="stat">
+    <p>Il reste {{ exemplaires_stat.en_stock }} exemplaire(s)</p>
+    <p>{{ exemplaires_stat.vendu }} exemplaire(s) a/ont été vendu(s)</p>
+    <p>{{ exemplaires_stat.depot }} exemplaire(s) est/sont en dépôt</p>
+    <p>{{ exemplaires_stat.offert }} exemplaire(s) a/ont été donné(s)</p>
+    <p>{{ exemplaires_stat.hors_stock }} exemplaire(s) est/sont hors stock</p>
+</div>
+<div class="stat">
+    {% for vendeur, stat in vendeurs_stat.items %}
+        <p>{{ vendeur }} a vendu pour {{ stat.a_vendu_pour|zero_display }} Euros</p>
+    {% endfor %}
+</div>
+<div class="stat">
+    {% for vendeur, stat in vendeurs_stat.items %}
+        <p>{{ vendeur }} doit {{ stat.doit|zero_display }} Euros à TTT</p>
+    {% endfor %}
+</div>
+<div class="stat">
+    {% for vendeur, stat in vendeurs_stat.items %}
+        <p>frais de port dus à {{ vendeur }}: {{ stat.doit_recup|zero_display }} Euros</p>
+    {% endfor %}
+</div>
+<div class="stat">
+    <p>Nombre de téléchargement(s) total: {{ cassettes_stat.nombre_de_download }}</p>
+    <p>Total des ventes: {{ exemplaires_stat.ventes_totales }} Euros</p>
+    <p>Bénéfices (total des ventes - montant fdp total): {{ exemplaires_stat.gains_reels }} Euros</p>
+</div>

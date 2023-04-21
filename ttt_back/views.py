@@ -22,30 +22,12 @@ def gestion_exemplaire(request, *args, **kwargs): # create a custom admin view
         context=context
     )
 
-class Compta(LoginRequiredMixin, View):
-    template_name = "ttt_back/compta.html"
-
-    def get(self, request, **kwargs): # use **kwargs to get url parameters
-        return render(
-            request,
-            self.template_name
-        )
-    
-    def post(self, request, **kwargs):
-        return render(
-            request,
-            self.template_name
-        )
-
-class Gestion_exemplaire_detail(LoginRequiredMixin, View):
-    template_name = "ttt_back/gestion_exemplaire_detail.html"
-    exemplaires_formset = modelformset_factory(Exemplaire, exclude=["id_cassette"])
-    
+class Calcul:
     def exemplaires_stat(self, exemplaires):
         etats = EtatExemplaire.objects.all()
         exemplaires_stat = {}
         for etat in etats:
-            exemplaires_stat[etat.description_etat] = exemplaires.filter(id_etat=etat.id_etat_exemplaire).count()
+            exemplaires_stat[etat.description_etat.replace("-", "_")] = exemplaires.filter(id_etat=etat.id_etat_exemplaire).count()
         exemplaires_stat["ventes_totales"] = exemplaires.aggregate(ventes_totales = Sum("prix_vente_euros"))["ventes_totales"]
         exemplaires_stat["gains_reels"] = exemplaires_stat["ventes_totales"] - exemplaires.aggregate(gains_reels = Sum("montant_frais_de_port"))["gains_reels"]
         return exemplaires_stat
@@ -60,15 +42,59 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
             vendeurs_stat[vendeur.first_name]["doit_recup"] = exemplaires_vendeur.exclude(frais_de_port_rembourses=1).aggregate(doit_recup = Sum("montant_frais_de_port"))["doit_recup"]
         return vendeurs_stat
     
-    def cassette_stat(self, id_cassette):
-        return Cassette.objects.filter(id_cassette=id_cassette).values("nombre_de_download")[0]
+    def cassettes_stat(self):
+        cassettes_stat = Cassette.objects.all().aggregate(nombre_de_download = Sum("nombre_de_download"))
+        return cassettes_stat
 
+    def cassette_stat(self, id_cassette):
+        cassette = Cassette.objects.filter(id_cassette=id_cassette).values_list("nombre_de_download", "code", "titre")[0]
+        cassette_stat = {}
+        cassette_stat["nombre_de_download"] = cassette[0]
+        cassette_stat["code"] = cassette[1]
+        cassette_stat["titre"] = cassette[2]
+        return cassette_stat
+
+class Compta(LoginRequiredMixin, View):
+    template_name = "ttt_back/compta.html"
+    exemplaires = Exemplaire.objects.all()
+    exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
+    vendeurs_stat = Calcul().vendeurs_stat(exemplaires)
+    cassettes_stat = Calcul().cassettes_stat()
+
+    def get(self, request, **kwargs): # use **kwargs to get url parameters
+        context = {
+            "vendeurs_stat": self.vendeurs_stat,
+            "exemplaires_stat": self.exemplaires_stat,
+            "cassettes_stat": self.cassettes_stat
+        }
+        return render(
+            request,
+            self.template_name,
+            context
+        )
+    
+    def post(self, request, **kwargs):
+        context = {
+            "vendeurs_stat": self.vendeurs_stat,
+            "exemplaires_stat": self.exemplaires_stat,
+            "cassettes_stat": self.cassettes_stat
+        }
+        return render(
+            request,
+            self.template_name,
+            context
+        )
+
+class Gestion_exemplaire_detail(LoginRequiredMixin, View):
+    template_name = "ttt_back/gestion_exemplaire_detail.html"
+    exemplaires_formset = modelformset_factory(Exemplaire, exclude=["id_cassette"])
+    
     def get(self, request, **kwargs): # use **kwargs to get url parameters
         exemplaires = Exemplaire.objects.filter(id_cassette=kwargs["id_cassette"])
         exemplaires_formset = self.exemplaires_formset(queryset=exemplaires)
-        exemplaires_stat = self.exemplaires_stat(exemplaires)
-        vendeurs_stat = self.vendeurs_stat(exemplaires)
-        cassette_stat = self.cassette_stat(kwargs["id_cassette"])
+        exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
+        vendeurs_stat = Calcul().vendeurs_stat(exemplaires)
+        cassette_stat = Calcul().cassette_stat(kwargs["id_cassette"])
         context = {
             "formset": exemplaires_formset,
             "vendeurs_stat": vendeurs_stat,
@@ -88,9 +114,9 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
             for form in exemplaires_formset:
                 if form.cleaned_data:
                     form.save()
-        exemplaires_stat = self.exemplaires_stat(exemplaires)
-        vendeurs_stat = self.vendeurs_stat(exemplaires)
-        cassette_stat = self.cassette_stat(kwargs["id_cassette"])
+        exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
+        vendeurs_stat = Calcul().vendeurs_stat(exemplaires)
+        cassette_stat = Calcul().cassette_stat(kwargs["id_cassette"])
         context = {
             "formset": exemplaires_formset,
             "vendeurs_stat": vendeurs_stat,
