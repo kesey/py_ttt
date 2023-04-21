@@ -35,9 +35,9 @@
                     </thead>
                 {% endif %}
                 {% if not forloop.last %}
-                    <tr class="exemplaire_tr exemplaire_tr_{{ forloop.counter }}">
+                    <tr class="exemplaire_tr exemplaire_tr_{{ forloop.counter0 }}">
                         {% for field in form.visible_fields %}
-                            <td class="exemplaire_td exemplaire_td_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+                            <td class="exemplaire_td exemplaire_td_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}">
                                 {# Include the hidden fields in the form #}
                                 {% if forloop.first %}
                                     {% for hidden in form.hidden_fields %}
@@ -46,7 +46,7 @@
                                 {% endif %}
                                 {{ field.errors.as_ul }}
                                 {% if field.label == "Numero exemplaire" %}
-                                    <input type="text" value="{{ field.value }}" class="numero_exemplaire numero_exemplaire_{{ forloop.parentloop.counter }}" disabled>
+                                    <input type="text" id="id_form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" name="form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" value="{{ field.value }}" class="numero_exemplaire numero_exemplaire_{{ forloop.parentloop.counter0 }}" disabled>
                                 {% else %}
                                     {{ field }}
                                 {% endif %}
