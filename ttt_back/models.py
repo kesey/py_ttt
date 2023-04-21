@@ -1,6 +1,6 @@
 from django.db import models
 from ttt_front.models import Cassette
-from authentication.models import User
+from django.conf import settings
 
 class Client(models.Model):
     id_client = models.AutoField(primary_key=True)
@@ -35,7 +35,7 @@ class Exemplaire(models.Model):
     commentaire = models.CharField(max_length=255, blank=True, null=True)
     montant_frais_de_port = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     frais_de_port_rembourses = models.BooleanField(default=False)
-    id_vendeur = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
+    id_vendeur = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, blank=True, null=True)
     id_cassette = models.ForeignKey(Cassette, models.CASCADE, blank=True, null=True)
     id_etat = models.ForeignKey(EtatExemplaire, models.DO_NOTHING, blank=True, null=True)
     id_client = models.ForeignKey(Client, models.DO_NOTHING, blank=True, null=True)

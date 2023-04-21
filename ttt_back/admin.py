@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ttt_back.models import Client # , Exemplaire
+from ttt_back.models import Client
 from ttt_back.views import gestion_exemplaire, Compta
 from adminplus.sites import AdminSitePlus
 

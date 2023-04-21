@@ -6,9 +6,19 @@
     <div>
         <a href="{% url 'gestion_exemplaire' %}">Retour à la liste des cassettes</a>
     </div>
+    {{ vendeurs_stat }}
+    {{ exemplaires_stat }}
+    {{ vendeurs_stat.Fabien.a_vendu_pour }}
+    {{ cassette_stat.nombre_de_download }}
+    <ul>
+        {% for vendeur in vendeurs_stat %}
+            <li>{{ vendeur }} à vendu pour {{ vendeur.a_vendu_pour }}</li>
+        {% endfor %}
+    </ul>
     <form method="post">
         {% csrf_token %}
         {{ formset.non_form_errors.as_ul }}
+        {{ formset.management_form }} 
         <table id="formset" class="exemplaire_form">
             {% for form in formset.forms %}
                 {% if forloop.first %}
@@ -25,9 +35,9 @@
                     </thead>
                 {% endif %}
                 {% if not forloop.last %}
-                    <tr class="exemplaire_tr_{{ forloop.counter }}">
+                    <tr class="exemplaire_tr exemplaire_tr_{{ forloop.counter }}">
                         {% for field in form.visible_fields %}
-                            <td class="exemplaire_td_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+                            <td class="exemplaire_td exemplaire_td_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
                                 {# Include the hidden fields in the form #}
                                 {% if forloop.first %}
                                     {% for hidden in form.hidden_fields %}
@@ -36,7 +46,7 @@
                                 {% endif %}
                                 {{ field.errors.as_ul }}
                                 {% if field.label == "Numero exemplaire" %}
-                                    <input type="text" value="{{ field.value }}" class="numero_exemplaire" disabled>
+                                    <input type="text" value="{{ field.value }}" class="numero_exemplaire numero_exemplaire_{{ forloop.parentloop.counter }}" disabled>
                                 {% else %}
                                     {{ field }}
                                 {% endif %}
