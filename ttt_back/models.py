@@ -45,5 +45,17 @@ class Exemplaire(models.Model):
 
     def __str__(self):
         return f"{self.numero_exemplaire} {self.id_cassette}"
+    
+class ComptaVendeur(models.Model):
+    id_compta_vendeur = models.AutoField(primary_key=True)
+    id_vendeur = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, blank=True, null=True) # , editable=False)
+    a_rembourse = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, default=0)
+    a_recupere = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, default=0)
+
+    class Meta:
+        db_table = 'compta_vendeur'
+    
+    def __str__(self):
+        return f"{self.id_vendeur}"
 
 

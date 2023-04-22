@@ -6,8 +6,7 @@ from adminplus.sites import AdminSitePlus
 admin.site = AdminSitePlus()
 admin.autodiscover()
 
-# class UserAdmin(BaseUserAdmin):
-#     pass
+class UserAdmin(BaseUserAdmin):
+    pass
 
-admin.site.register(User)
-# admin.site.register(User, UserAdmin)
+admin.site.register(User, UserAdmin)

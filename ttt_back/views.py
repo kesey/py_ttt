@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from ttt_front.models import Cassette
-from ttt_back.models import Exemplaire, EtatExemplaire
+from ttt_back.models import Exemplaire, EtatExemplaire, ComptaVendeur
 from authentication.models import User
 from django.core.paginator import Paginator
 from django.forms import modelformset_factory
@@ -42,6 +42,27 @@ class Calcul:
             vendeurs_stat[vendeur.first_name]["doit_recup"] = exemplaires_vendeur.exclude(frais_de_port_rembourses=1).aggregate(doit_recup = Sum("montant_frais_de_port"))["doit_recup"]
         return vendeurs_stat
     
+    def compta_vendeurs_stat(self, exemplaires):
+        vendeurs = User.objects.all()
+        vendeurs_stat = {}
+        for vendeur in vendeurs:
+            exemplaires_vendeur = exemplaires.filter(id_vendeur=vendeur.id)
+
+            compta_vendeur = ComptaVendeur.objects.filter(id_vendeur=vendeur.id).aggregate(a_rembourse = Sum("a_rembourse"), a_recupere = Sum("a_recupere"))
+            compta_vendeur["a_rembourse"] = compta_vendeur["a_rembourse"] if compta_vendeur["a_rembourse"] else 0
+            compta_vendeur["a_recupere"] = compta_vendeur["a_recupere"] if compta_vendeur["a_recupere"] else 0
+
+            vendeurs_stat[vendeur.first_name] = exemplaires_vendeur.aggregate(a_vendu_pour = Sum("prix_vente_euros"))
+            vendeurs_stat[vendeur.first_name]["doit"] = exemplaires_vendeur.exclude(vente_remboursee=1).aggregate(doit = Sum("prix_vente_euros"))["doit"]
+            vendeurs_stat[vendeur.first_name]["doit_recup"] = exemplaires_vendeur.exclude(frais_de_port_rembourses=1).aggregate(doit_recup = Sum("montant_frais_de_port"))["doit_recup"]
+            
+            vendeurs_stat[vendeur.first_name]["doit"] = vendeurs_stat[vendeur.first_name]["doit"] if vendeurs_stat[vendeur.first_name]["doit"] else 0
+            vendeurs_stat[vendeur.first_name]["doit"] = vendeurs_stat[vendeur.first_name]["doit"] - compta_vendeur["a_rembourse"]
+            
+            vendeurs_stat[vendeur.first_name]["doit_recup"] = vendeurs_stat[vendeur.first_name]["doit_recup"] if vendeurs_stat[vendeur.first_name]["doit_recup"] else 0
+            vendeurs_stat[vendeur.first_name]["doit_recup"] = vendeurs_stat[vendeur.first_name]["doit_recup"] - compta_vendeur["a_recupere"]
+        return vendeurs_stat
+
     def cassettes_stat(self):
         cassettes_stat = Cassette.objects.all().aggregate(nombre_de_download = Sum("nombre_de_download"))
         return cassettes_stat
@@ -54,36 +75,23 @@ class Calcul:
         cassette_stat["titre"] = cassette[2]
         return cassette_stat
 
-class Compta(LoginRequiredMixin, View):
-    template_name = "ttt_back/compta.html"
+@login_required
+def compta(request, *args, **kwargs):
     exemplaires = Exemplaire.objects.all()
     exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
-    vendeurs_stat = Calcul().vendeurs_stat(exemplaires)
+    vendeurs_stat = Calcul().compta_vendeurs_stat(exemplaires)
     cassettes_stat = Calcul().cassettes_stat()
 
-    def get(self, request, **kwargs): # use **kwargs to get url parameters
-        context = {
-            "vendeurs_stat": self.vendeurs_stat,
-            "exemplaires_stat": self.exemplaires_stat,
-            "cassettes_stat": self.cassettes_stat
-        }
-        return render(
-            request,
-            self.template_name,
-            context
-        )
-    
-    def post(self, request, **kwargs):
-        context = {
-            "vendeurs_stat": self.vendeurs_stat,
-            "exemplaires_stat": self.exemplaires_stat,
-            "cassettes_stat": self.cassettes_stat
-        }
-        return render(
-            request,
-            self.template_name,
-            context
-        )
+    context = {
+        "vendeurs_stat": vendeurs_stat,
+        "exemplaires_stat": exemplaires_stat,
+        "cassette_stat": cassettes_stat
+    }
+    return render(
+        request,
+        "ttt_back/compta.html",
+        context
+    )
 
 class Gestion_exemplaire_detail(LoginRequiredMixin, View):
     template_name = "ttt_back/gestion_exemplaire_detail.html"

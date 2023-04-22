@@ -1,6 +1,6 @@
 from django.contrib import admin
-from ttt_back.models import Client
-from ttt_back.views import gestion_exemplaire, Compta
+from ttt_back.models import Client, ComptaVendeur
+from ttt_back.views import gestion_exemplaire, compta
 from adminplus.sites import AdminSitePlus
 
 admin.site = AdminSitePlus()
@@ -14,6 +14,12 @@ admin.site.register_view(
     visible=True
 )
 
-admin.site.register_view('compta/', name="comptabilité", view=Compta.as_view(), urlname="compta")
+admin.site.register_view('compta/', name="comptabilité", view=compta, urlname="compta")
+
+class ComptaVendeurAdmin(admin.ModelAdmin):
+    list_display = ("id_vendeur", "a_rembourse", "a_recupere")
+    # readonly_fields=('id_vendeur',)
+
+admin.site.register(ComptaVendeur, ComptaVendeurAdmin)
 
 admin.site.register(Client)
