@@ -33,7 +33,7 @@ class Calcul:
         return exemplaires_stat
     
     def vendeurs_stat(self, exemplaires):
-        vendeurs = User.objects.filter(suppr=0)
+        vendeurs = User.objects.all()
         vendeurs_stat = {}
         for vendeur in vendeurs:
             exemplaires_vendeur = exemplaires.filter(id_vendeur=vendeur.id)

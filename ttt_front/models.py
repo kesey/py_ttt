@@ -1,6 +1,7 @@
 from django.db import models
 from tinymce import models as tinymce_models
 from django_resized import ResizedImageField
+from django.apps import apps # avoid circular import
 
 class Cassette(models.Model):
     id_cassette = models.AutoField(primary_key=True)
@@ -15,14 +16,44 @@ class Cassette(models.Model):
     image_pochette = ResizedImageField(size=[600, 600], upload_to='image_cassette', blank=True, null=True)
     download = models.FileField(upload_to='file_cassette', blank=True, null=True)
     nombre_de_download = models.IntegerField(default=0)
-    prix = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
+    prix = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, default=6.00)
     sold_out = models.BooleanField(default=False)
     suppr = models.BooleanField(default=False)
     publier = models.BooleanField(default=False)
-    nombre_exemplaire = models.IntegerField(blank=True, null=True)
+    nombre_exemplaire = models.IntegerField(blank=True, null=True, default=75)
 
     class Meta:
         db_table = 'cassette'
+
+    def save(self, *args, **kwargs): # surcharge save method of the models.Model
+        super().save(*args, **kwargs)
+        exemplaire_class = apps.get_model('ttt_back.Exemplaire') # apps.get_model avoid circular import
+        if not exemplaire_class.objects.filter(id_cassette=self.id_cassette).exists(): # verify if the exemplaires for this cassette already exist, if not create all exemplaires
+            for i in range(self.nombre_exemplaire):
+                if 0 <= i <= 9: # first ten exemplaires are for the artist
+                    id_etat = 5 # (5 == offert)
+                    localisation = "Chez l'artiste"
+                    commentaire = "exemplaire offert à l'artiste"
+                else:
+                    id_etat = 1 # (1 == en stock)
+                    localisation = ""
+                    commentaire = ""
+                exemplaire = exemplaire_class(
+                    None, # id auto increment 
+                    i + 1, # numero_exemplaire
+                    id_etat, # id_etat (1 == en stock)
+                    localisation, # localite_exemplaire
+                    None, # id_vendeur
+                    0.00, # prix_vente_euros
+                    False, # vente_remboursee
+                    None, # id_client
+                    None, # date_vente
+                    0.00, # montant_frais_de_port
+                    False, # frais_de_port_rembourses
+                    commentaire, # commentaire
+                    self.id_cassette # id_cassette
+                )
+                exemplaire.save()
     
     def __str__(self):
         return f"{self.code} {self.titre}"

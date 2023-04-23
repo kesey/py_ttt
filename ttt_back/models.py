@@ -28,18 +28,18 @@ class EtatExemplaire(models.Model):
 class Exemplaire(models.Model):
     id_exemplaire = models.AutoField(primary_key=True)
     numero_exemplaire = models.IntegerField(blank=True, null=True)
+    id_etat = models.ForeignKey(EtatExemplaire, models.DO_NOTHING, blank=True, null=True)
+    localite_exemplaire = models.CharField(max_length=150, blank=True, null=True)
+    id_vendeur = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, blank=True, null=True)
     prix_vente_euros = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     vente_remboursee = models.BooleanField(default=False)
+    id_client = models.ForeignKey(Client, models.DO_NOTHING, blank=True, null=True)
     date_vente = models.DateField(blank=True, null=True)
-    localite_exemplaire = models.CharField(max_length=150, blank=True, null=True)
-    commentaire = models.CharField(max_length=255, blank=True, null=True)
     montant_frais_de_port = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     frais_de_port_rembourses = models.BooleanField(default=False)
-    id_vendeur = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING, blank=True, null=True)
+    commentaire = models.CharField(max_length=255, blank=True, null=True)
     id_cassette = models.ForeignKey(Cassette, models.CASCADE, blank=True, null=True)
-    id_etat = models.ForeignKey(EtatExemplaire, models.DO_NOTHING, blank=True, null=True)
-    id_client = models.ForeignKey(Client, models.DO_NOTHING, blank=True, null=True)
-
+    
     class Meta:
         db_table = 'exemplaire'
 
