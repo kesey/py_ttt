@@ -30,7 +30,16 @@ urlpatterns = [
     path('admin/gestion_exemplaire/<int:id_cassette>/', ttt_back.views.Gestion_exemplaire_detail.as_view(), name="gestion_exemplaire_detail"),
     path('admin/gestion_exemplaire/', ttt_back.views.gestion_exemplaire, name="gestion_exemplaire"),
     path('admin/', admin.site.urls),
-    path('', ttt_front.views.home, name='home')
+    path('label/', ttt_front.views.label, name="label"),
+    path('', ttt_front.views.home, name='home'),
+    path('cassette/<int:id_cassette>/', ttt_front.views.cassette_detail, name="cassette_detail"),
+    path('artistes/', ttt_front.views.artistes, name="artistes"),
+    path('artiste/<int:id_artiste>/', ttt_front.views.artiste_detail, name="artiste_detail"),
+    path('events/', ttt_front.views.events, name="events"),
+    path('event/<int:id_event>/', ttt_front.views.event_detail, name="event_detail"),
+    path('live_archives/', ttt_front.views.live_archives, name="live_archives"),
+    path('links/', ttt_front.views.links, name="links"),
+    path('contact/', ttt_front.views.contact, name="contact")
 ]
 
 if settings.DEBUG: # serve media in dev environnement (don't use this in production)

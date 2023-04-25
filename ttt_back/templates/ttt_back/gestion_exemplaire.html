@@ -6,7 +6,7 @@
         {% for cassette in page %}
         <li>
             <a href="{% url 'gestion_exemplaire_detail' cassette.id_cassette %}">
-                {{cassette.code}} {{ cassette.titre }}</li>
+                {{ cassette }}
             </a>    
         </li>
         {% endfor %}

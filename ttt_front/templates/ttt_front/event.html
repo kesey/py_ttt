@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Events</h2>
+    {% for event in page %}
+        <a href="{% url 'event_detail' event.id_event %}" >
+            <span class="showInfos" >
+                <img class="image_event" src="{{ event.image_event.url }}" title="image_event" alt="{{ event.titre_event }}" >
+                <p>{{ event.date_event }} // {{ event.titre_event }}</p>
+            </span>
+        </a>
+    {% endfor %}
+    {% include 'ttt_back/partials/pagination_snippet.html' %}
+{% endblock content %}
