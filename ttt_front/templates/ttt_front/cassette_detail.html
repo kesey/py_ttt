@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Cassette Détail</h2>
-    <p>{{ cassette }}</p>
-    <p>{{ artistes }}</p>
+    {% include 'ttt_front/partials/header_snippet.html' %}
+    <section>
+        <h2>Cassette Détail</h2>
+        <p>{{ cassette }}</p>
+        <p>{{ artistes }}</p>
+        <p>{{ frais_de_port }}</p>
+    </section>
 {% endblock content %}

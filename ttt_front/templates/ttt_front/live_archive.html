@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Live Archives</h2>
+    {% include 'ttt_front/partials/header_snippet.html' %}
+    <section>
+        <h2>Live Archives</h2>
+        <p>
+            <iframe scrolling="no" id="hearthis_at_user_third-type-tapes-live-archive" width="100%" height="450" src="https://app.hearthis.at/third-type-tapes-live-archive/embed/?hcolor=1143b8" frameborder="0" allowtransparency>
+            </iframe>
+        </p>
+    </section>
 {% endblock content %}

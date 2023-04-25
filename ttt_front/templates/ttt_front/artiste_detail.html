@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Artiste Détail</h2>
-    <p>{{ artiste }}</p>
-    <p>{{ cassettes }}</p>
+    {% include 'ttt_front/partials/header_snippet.html' %}
+    <section>
+        <h2>Artiste Détail</h2>
+        <p>{{ artiste }}</p>
+        <p>{{ cassettes }}</p>
+    </section>
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from ttt_front.models import Cassette, Artiste, Event
+from ttt_front.models import Cassette, Artiste, Event, FraisDePort
 from django.core.paginator import Paginator
 
 def label(request):
@@ -29,9 +29,11 @@ def home(request):
 def cassette_detail(request, id_cassette):
     cassette = Cassette.objects.filter(id_cassette=id_cassette)
     artistes = cassette.get().artiste_set.all()
+    frais_de_port = FraisDePort.objects.all()
     context = { 
         "cassette": cassette,
-        "artistes": artistes
+        "artistes": artistes,
+        "frais_de_port": frais_de_port,
     }
     return render(
         request,
@@ -98,9 +100,12 @@ def live_archives(request):
     )
 
 def links(request):
-    artistes_links = Artiste.objects.all().values("lien_artiste")
+    artistes = Artiste.objects.all().values_list("nom", "lien_artiste")
+    paginator = Paginator(artistes, 20)
+    page_number = request.GET.get("page")
+    page = paginator.get_page(page_number)
     context = {
-        "artistes_links": artistes_links
+        "page": page
     }
     return render(
         request,
