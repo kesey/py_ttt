@@ -1,18 +1,15 @@
-{% extends "base.html" %}
+{% extends "base_front.html" %}
 {% load ttt_front_extras %}
 
 {% block content %}
-    {% include 'ttt_front/partials/header_snippet.html' %}
-    <section>
-        <h2>Home</h2>
-        {% for cassette in page %}
-            <a href="{% url 'cassette_detail' cassette.id_cassette %}" >
-                <span class="showInfos" >
-                    <img class="pochette" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}" >
-                    <p>{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</p>
-                </span>
-            </a>
-        {% endfor %}
-        {% include 'ttt_back/partials/pagination_snippet.html' %}
-    </section>
+    <h2>Home</h2>
+    {% for cassette in page %}
+        <a href="{% url 'cassette_detail' cassette.id_cassette %}" >
+            <span class="showInfos" >
+                <img class="pochette" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}" >
+                <p>{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</p>
+            </span>
+        </a>
+    {% endfor %}
+    {% include 'ttt_back/partials/pagination_snippet.html' %}
 {% endblock content %}
