@@ -75,10 +75,9 @@ a:hover {
   color: #808080;
 }
 .newsLetter {
-  display: inline-block;
   vertical-align: top;
   padding-top: 5px;
-  padding-left: 20px;
+  min-width: 220px;
 }
 .newsLetter .mc-field-group label {
   display: block;
@@ -97,22 +96,24 @@ a:hover {
   border-radius: 5px;
 }
 .nav_menu {
-  display: inline-block;
   text-align: center;
   padding-bottom: 20px;
   padding-top: 10px;
-  width: 74%;
 }
 .nav_menu li {
   display: inline;
   text-align: center;
   padding: 19px;
+  line-height: 40px;
 }
 .nav_menu li a {
   color: #ffffff;
 }
 .nav_menu li a:hover {
-  color: #53B4C4;
+  color: #808080;
+}
+.menu_right_space {
+  min-width: 220px;
 }
 /**********************************import components-style**********************************/
 /**********************************import partials-style************************************/
