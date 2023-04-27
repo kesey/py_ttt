@@ -11,12 +11,14 @@ $(document).ready(function() {
                 "border-radius": "5px",
                 "z-index": "999"
             });
+            $(".anchor").css("visibility", "visible");
         } else {
             $(".nav_menu ul").css({
                 "position": "static",
                 "background-color": "black",
                 "border-style": "none"
             });
+            $(".anchor").css("visibility", "hidden");
         }
     });
 });
