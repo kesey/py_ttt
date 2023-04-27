@@ -60,18 +60,59 @@
   transition: all 0.2s ease;
   font-family: 'Kanit', sans-serif;
 }
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
 ul {
   list-style-type: none;
 }
 a {
   text-decoration: none;
+  color: #53B4C4;
 }
 a:hover {
-  color: #01c4f5;
+  color: #808080;
 }
-.stat {
+.newsLetter {
   display: inline-block;
-  margin: 20px;
+  vertical-align: top;
+  padding-top: 5px;
+  padding-left: 20px;
+}
+.newsLetter .mc-field-group label {
+  display: block;
+  width: 200px;
+}
+.newsLetter #mc-embedded-subscribe,
+.newsLetter #mce-EMAIL {
+  margin-top: 8px;
+  width: 200px;
+  height: 29px;
+}
+.newsLetter #mc-embedded-subscribe {
+  border-radius: 5px;
+}
+.newsLetter #mc-embedded-subscribe:hover {
+  border-radius: 5px;
+}
+.nav_menu {
+  display: inline-block;
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  width: 74%;
+}
+.nav_menu li {
+  display: inline;
+  text-align: center;
+  padding: 19px;
+}
+.nav_menu li a {
+  color: #ffffff;
+}
+.nav_menu li a:hover {
+  color: #53B4C4;
 }
 /**********************************import components-style**********************************/
 /**********************************import partials-style************************************/

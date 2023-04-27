@@ -13,40 +13,66 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/ttt_front.css' %}">
     </head>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="{% url 'label' %}">Label</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'home' %}">Releases</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'artistes' %}">Artistes</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'events' %}">Events</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'live_archives' %}">Live Archives</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'links' %}">Links</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'contact' %}">Contact</a>
-                    </li>
-                </ul>
-            </nav>
+        <header class="container">
+            <div class="row">
+                <div class="newsLetter col-md-2">
+                    <div id="mc_embed_signup">
+                        <form action="https://thirdtypetapes.us4.list-manage.com/subscribe/post?u=96f9f95bea80b4e79e9ee01e8&amp;id=5d4e1e5e62" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <div id="mc_embed_signup_scroll">
+                                <div class="mc-field-group">
+                                    <label for="mce-EMAIL">Subscribe to our mailing list</label>
+                                    <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="email address" required>
+                                </div>
+                                <div id="mce-responses" class="clear">
+                                    <div class="response" id="mce-error-response" style="display:none"></div>
+                                    <div class="response" id="mce-success-response" style="display:none"></div>
+                                </div>
+                                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_96f9f95bea80b4e79e9ee01e8_5d4e1e5e62" tabindex="-1" value=""></div>
+                                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <nav class="nav_menu col-md-10">
+                    <a href="{% url 'home' %}">
+                        <img class="pochette" src="{% get_media_prefix %}headerLogo.jpg" title="header_logo" alt="header_logo">
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'label' %}">Label</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'home' %}">Releases</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'artistes' %}">Artistes</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'events' %}">Events</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'live_archives' %}">Live Archives</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'links' %}">Links</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'contact' %}">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </header>
         <section>
             {% block content %}
             {% endblock content %}
         </section>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     </body>
 </html>
