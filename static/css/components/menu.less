@@ -35,13 +35,18 @@ header {
         li {
             display: inline;
             text-align: center;
-            padding: 19px;
+            padding: 3px;
+            margin: 17px;
             line-height: 40px;
             a {
                 color: @white;
                 &:hover {
                     color: @grey;
                 }
+            }
+            &.active {
+                border-bottom: 1px solid;
+                border-color: @white;
             }
         }
     }

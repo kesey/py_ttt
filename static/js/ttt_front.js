@@ -21,4 +21,18 @@ $(document).ready(function() {
             $(".anchor").css("visibility", "hidden");
         }
     });
+
+    $(function() { // highlight navigation menu depends on url
+        // this will get the full URL at the address bar
+        var url = window.location.href;
+        // passes on every "a" tag
+        $(".nav_menu a").each(function() {
+            // checks if its the same on the address bar
+            if (url == (this.href)) {
+                $(this).closest("li").addClass("active");
+            } else {
+                $(this).closest("li").removeClass("active");
+            }
+        });
+    });
 });

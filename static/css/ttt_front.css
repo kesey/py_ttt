@@ -60,10 +60,6 @@
   transition: all 0.23s ease;
   font-family: 'Kanit', sans-serif;
 }
-body {
-  background-color: #000000;
-  color: #ffffff;
-}
 ul {
   list-style-type: none;
 }
@@ -103,6 +99,10 @@ a:hover {
 .pagination a {
   margin: 10px;
 }
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
 .links {
   margin: auto;
   width: 220px;
@@ -110,8 +110,8 @@ a:hover {
 .anchor {
   margin: 50px;
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: 30px;
+  bottom: 60px;
   z-index: 1;
   visibility: hidden;
 }
@@ -151,7 +151,8 @@ header {
 .nav_menu ul li {
   display: inline;
   text-align: center;
-  padding: 19px;
+  padding: 3px;
+  margin: 17px;
   line-height: 40px;
 }
 .nav_menu ul li a {
@@ -159,6 +160,10 @@ header {
 }
 .nav_menu ul li a:hover {
   color: #808080;
+}
+.nav_menu ul li.active {
+  border-bottom: 1px solid;
+  border-color: #ffffff;
 }
 .social_menu {
   text-align: center;
