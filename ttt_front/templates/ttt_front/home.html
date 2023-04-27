@@ -2,12 +2,11 @@
 {% load ttt_front_extras %}
 
 {% block content %}
-    <h2>Home</h2>
     {% for cassette in page %}
         <a href="{% url 'cassette_detail' cassette.id_cassette %}" >
-            <span class="showInfos" >
-                <img class="pochette" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}" >
-                <p>{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</p>
+            <span class="showInfos">
+                <img class="pochette" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}">
+                <span class="cassette_infos">{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</span>
             </span>
         </a>
     {% endfor %}

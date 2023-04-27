@@ -74,9 +74,14 @@ a {
 a:hover {
   color: #808080;
 }
+/**********************************import components-style**********************************/
+/**********************************************menu********************************/
+header {
+  padding-top: 10px;
+}
 .newsLetter {
   vertical-align: top;
-  padding-top: 5px;
+  padding-bottom: 10px;
   min-width: 220px;
 }
 .newsLetter .mc-field-group label {
@@ -94,26 +99,50 @@ a:hover {
 }
 .newsLetter #mc-embedded-subscribe:hover {
   border-radius: 5px;
+  background-color: #808080;
+  color: #ffffff;
 }
 .nav_menu {
   text-align: center;
-  padding-bottom: 20px;
-  padding-top: 10px;
+  padding-top: 5px;
 }
-.nav_menu li {
+.nav_menu ul li {
   display: inline;
   text-align: center;
   padding: 19px;
   line-height: 40px;
 }
-.nav_menu li a {
+.nav_menu ul li a {
   color: #ffffff;
 }
-.nav_menu li a:hover {
+.nav_menu ul li a:hover {
   color: #808080;
 }
-.menu_right_space {
+.social_menu {
+  text-align: center;
   min-width: 220px;
 }
-/**********************************import components-style**********************************/
+.social_menu .social_list li {
+  display: inline;
+  padding: 12px;
+  line-height: 40px;
+}
+.social_menu .social_list li a {
+  color: #ffffff;
+}
+.social_menu .social_list li a:hover {
+  color: #808080;
+}
+article.bottom {
+  display: none;
+}
+@media screen and (max-width: 1400px) {
+  article.bottom {
+    display: block;
+  }
+  .newsLetter.up,
+  .social_menu.up {
+    display: none;
+  }
+}
 /**********************************import partials-style************************************/
