@@ -1,14 +1,13 @@
 {% extends "base_front.html" %}
 
 {% block content %}
-    <h2>Artistes</h2>
     {% for artiste in page %}
-        <a href="{% url 'artiste_detail' artiste.id_artiste %}" >
-            <span class="showInfos" >
+        <div class="show_infos" >
+            <a class="cover" href="{% url 'artiste_detail' artiste.id_artiste %}" >
                 <img class="image_artiste" src="{{ artiste.image_artiste.url }}" title="image_artiste" alt="{{ artiste.nom }}" >
-                <p>{{ artiste.nom }}</p>
-            </span>
-        </a>
+                <span class="item_infos">{{ artiste.nom }}</span>
+            </a>
+        </div>
     {% endfor %}
     {% include 'ttt_back/partials/pagination_snippet.html' %}
 {% endblock content %}

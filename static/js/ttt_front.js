@@ -8,7 +8,8 @@ $(document).ready(function() {
                 "background-color": "rgba(0, 0, 0, 0.75)",
                 "border-style": "double",
                 "border-color": "white",
-                "border-radius": "5px"
+                "border-radius": "5px",
+                "z-index": "999"
             });
         } else {
             $(".nav_menu ul").css({

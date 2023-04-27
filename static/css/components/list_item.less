@@ -1,0 +1,28 @@
+.show_infos {
+    display: inline-block;
+    margin: 3px;
+    position: relative;
+    .cover {
+        color: @white;
+        img {
+            height: 200px;
+            // width: 200px;
+        }
+        .item_infos {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            padding: 5px;
+            word-wrap: break-word;
+            visibility: hidden;
+        }
+        &:hover {
+            .item_infos {
+                visibility: visible;
+            }
+            img {
+                opacity: 0.15;
+            }
+        }
+    }
+}

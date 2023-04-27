@@ -53,11 +53,11 @@
 /**********************************************Mixins*************************************/
 /**********************************************global-style********************************/
 * {
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  -ms-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.23s ease;
+  -moz-transition: all 0.23s ease;
+  -o-transition: all 0.23s ease;
+  -ms-transition: all 0.23s ease;
+  transition: all 0.23s ease;
   font-family: 'Kanit', sans-serif;
 }
 body {
@@ -74,10 +74,44 @@ a {
 a:hover {
   color: #808080;
 }
+.center {
+  text-align: center;
+}
+.left_align {
+  text-align: left;
+}
+.right_align {
+  text-align: right;
+}
+.ilb {
+  display: inline-block;
+}
+.bl {
+  display: block;
+}
+.v_align_top {
+  vertical-align: top;
+}
+.v_align_mid {
+  vertical-align: middle;
+}
+.v_align_bot {
+  vertical-align: bottom;
+}
+/**********************************import components-style**********************************/
+.pagination span,
+.pagination a {
+  margin: 10px;
+}
+.links {
+  margin: auto;
+  width: 220px;
+}
 /**********************************import components-style**********************************/
 /**********************************************menu********************************/
 header {
   padding-top: 10px;
+  margin-bottom: 50px;
 }
 .newsLetter {
   vertical-align: top;
@@ -144,5 +178,30 @@ article.bottom {
   .social_menu.up {
     display: none;
   }
+}
+.show_infos {
+  display: inline-block;
+  margin: 3px;
+  position: relative;
+}
+.show_infos .cover {
+  color: #ffffff;
+}
+.show_infos .cover img {
+  height: 200px;
+}
+.show_infos .cover .item_infos {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  padding: 5px;
+  word-wrap: break-word;
+  visibility: hidden;
+}
+.show_infos .cover:hover .item_infos {
+  visibility: visible;
+}
+.show_infos .cover:hover img {
+  opacity: 0.15;
 }
 /**********************************import partials-style************************************/
