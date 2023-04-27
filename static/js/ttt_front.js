@@ -25,6 +25,7 @@ $(document).ready(function() {
     $(function() { // highlight navigation menu depends on url
         // this will get the full URL at the address bar
         var url = window.location.href;
+        url = url.split("?page")[0]; // usefull for pagination
         // passes on every "a" tag
         $(".nav_menu a").each(function() {
             // checks if its the same on the address bar

@@ -53,11 +53,11 @@
 /**********************************************Mixins*************************************/
 /**********************************************global-style********************************/
 * {
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  -ms-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.23s ease;
+  -moz-transition: all 0.23s ease;
+  -o-transition: all 0.23s ease;
+  -ms-transition: all 0.23s ease;
+  transition: all 0.23s ease;
   font-family: 'Kanit', sans-serif;
 }
 ul {
@@ -65,13 +65,54 @@ ul {
 }
 a {
   text-decoration: none;
+  color: #53B4C4;
 }
 a:hover {
-  color: #01c4f5;
+  color: #808080;
+}
+.center {
+  text-align: center;
+}
+.left_align {
+  text-align: left;
+}
+.right_align {
+  text-align: right;
+}
+.ilb {
+  display: inline-block;
+}
+.bl {
+  display: block;
+}
+.v_align_top {
+  vertical-align: top;
+}
+.v_align_mid {
+  vertical-align: middle;
+}
+.v_align_bot {
+  vertical-align: bottom;
+}
+/**********************************import components-style**********************************/
+.pagination span,
+.pagination a {
+  margin: 10px;
+}
+a {
+  text-decoration: none;
+  color: #808080;
+}
+a:hover {
+  color: #53B4C4;
+}
+.exemplaire_form {
+  padding: 0px;
+  margin: 0px;
 }
 .stat {
   display: inline-block;
-  margin: 20px;
+  margin: 12px;
 }
 /**********************************import components-style**********************************/
 /**********************************import partials-style************************************/
