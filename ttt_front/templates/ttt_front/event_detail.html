@@ -1,6 +1,20 @@
 {% extends "base_front.html" %}
 
 {% block content %}
-    <h2>Event Détail</h2>
-    <p>{{ event }}</p>
+    {% for e in event %}
+        <div class="row">
+            <div class="col-4 right_align image_container">
+                <h5>{{ e.titre_event }}</h5>
+                <p>{{ e.date_event }}</p>
+                <img class="zoom" src="{{ e.image_event.url }}" title="event" alt="image_{{ e.titre_event }}">
+            </div>
+            <div class="col detail left_align" >{{ e.description_event|safe }}</div>
+        </div>
+        <!------------------------------------------------------------------------------google maps-------------------------------------------------------------------------------------->
+        {% if e.lieu %}
+            <div class="show_infos">
+                <iframe width="280" height="220" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{ e.lieu }}&key=AIzaSyAjeWvKPbraXn6DCD4tN7uwAaj_P-omRII" ></iframe>
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock content %}

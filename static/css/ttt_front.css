@@ -115,9 +115,6 @@ body {
   z-index: 1;
   visibility: hidden;
 }
-.zoom_in {
-  width: 600px;
-}
 /**********************************import components-style**********************************/
 /**********************************************menu********************************/
 header {
@@ -221,7 +218,6 @@ article.bottom {
 .show_infos .cover:hover img {
   opacity: 0.15;
 }
-/**********************************import partials-style************************************/
 .detail {
   display: inline-block;
   padding-top: 30px;
@@ -231,6 +227,9 @@ article.bottom {
 }
 .image_container img.zoom {
   min-width: 250px;
+}
+.image_container img.zoom.zoom_in {
+  width: 600px;
 }
 .image_container img.zoom:hover {
   cursor: zoom-in;
