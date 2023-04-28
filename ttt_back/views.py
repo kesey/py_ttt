@@ -31,7 +31,7 @@ class Calcul:
         exemplaires_stat["ventes_totales"] = exemplaires.aggregate(ventes_totales = Sum("prix_vente_euros"))["ventes_totales"]
         exemplaires_stat["gains_reels"] = exemplaires_stat["ventes_totales"] - exemplaires.aggregate(gains_reels = Sum("montant_frais_de_port"))["gains_reels"]
         return exemplaires_stat
-    
+
     def vendeurs_stat(self, exemplaires):
         vendeurs = User.objects.all()
         vendeurs_stat = {}
@@ -123,6 +123,11 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
                 if form.cleaned_data:
                     form.save()
         exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
+        if not exemplaires_stat.en_stock: # if no exemplaires left the cassette is sold out
+            cassette = Cassette.objects.filter(id_cassette=kwargs["id_cassette"])
+            if not cassette.sold_out:
+                cassette.sold_out = True
+                cassette.save()
         vendeurs_stat = Calcul().vendeurs_stat(exemplaires)
         cassette_stat = Calcul().cassette_stat(kwargs["id_cassette"])
         context = {
