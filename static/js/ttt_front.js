@@ -36,4 +36,18 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("img.zoom").on( "click", function() { // zoom image
+        if ($(this).hasClass("zoom_in")) {
+            $(this).removeClass("zoom_in");
+            $(this).parent().addClass("col-4 right_align");
+            $(this).parent().next().addClass("left_align");
+            $(this).parent().next().removeClass("center");
+        } else {
+            $(this).addClass("zoom_in");
+            $(this).parent().removeClass("col-4 right_align");
+            $(this).parent().next().addClass("center");
+            $(this).parent().next().removeClass("left_align");
+        };
+    });
 });

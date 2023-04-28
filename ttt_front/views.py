@@ -58,9 +58,13 @@ def artistes(request):
 def artiste_detail(request, id_artiste):
     artiste = Artiste.objects.filter(id_artiste=id_artiste)
     cassettes = artiste.get().cassette.all()
+    artistes = {}
+    for cassette in cassettes: # get artistes for each cassette
+        artistes[cassette.id_cassette] = Artiste.objects.filter(cassette=cassette)
     context = {
         "artiste": artiste,
-        "cassettes": cassettes
+        "cassettes": cassettes,
+        "artistes": artistes
     }
     return render(
         request,

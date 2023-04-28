@@ -115,6 +115,9 @@ body {
   z-index: 1;
   visibility: hidden;
 }
+.zoom_in {
+  width: 600px;
+}
 /**********************************import components-style**********************************/
 /**********************************************menu********************************/
 header {
@@ -207,7 +210,7 @@ article.bottom {
 .show_infos .cover .item_infos {
   position: absolute;
   top: 20px;
-  left: 10px;
+  left: 5px;
   padding: 5px;
   word-wrap: break-word;
   visibility: hidden;
@@ -219,3 +222,29 @@ article.bottom {
   opacity: 0.15;
 }
 /**********************************import partials-style************************************/
+.detail {
+  display: inline-block;
+  padding-top: 30px;
+}
+.image_container {
+  min-width: 350px;
+}
+.image_container img.zoom {
+  min-width: 250px;
+}
+.image_container img.zoom:hover {
+  cursor: zoom-in;
+}
+.image_container img.zoom.zoom_in:hover {
+  cursor: zoom-out;
+}
+.show_infos.min {
+  margin-top: 70px;
+  margin-bottom: 20px;
+}
+.min img.min_image {
+  height: 135px;
+}
+.min .item_infos.min_info {
+  font-size: 14px;
+}
