@@ -125,6 +125,7 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
         exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
         if not exemplaires_stat.en_stock: # if no exemplaire left the cassette is sold out
             cassette = Cassette.objects.filter(id_cassette=kwargs["id_cassette"])
+            cassette = cassette.get()
             if not cassette.sold_out:
                 cassette.sold_out = True
                 cassette.save()

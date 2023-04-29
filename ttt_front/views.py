@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ttt_front.models import Cassette, Artiste, Event, FraisDePort
 from django.core.paginator import Paginator
+from django.http import FileResponse
+from django.conf import settings
+import pathlib
 
 def label(request):
     return render(
@@ -9,7 +12,7 @@ def label(request):
     )
 
 def home(request):
-    cassettes = Cassette.objects.all().order_by("-date_sortie")
+    cassettes = Cassette.objects.all().exclude(publier=0).order_by("-date_sortie")
     paginator = Paginator(cassettes, 20)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
@@ -41,8 +44,25 @@ def cassette_detail(request, id_cassette):
         context=context
     )
 
+def download(request, id_cassette):
+    cassette = Cassette.objects.filter(id_cassette=id_cassette)
+    cassette = cassette.get()
+    file_name = str(cassette.download)
+    file_server = pathlib.Path(str(settings.MEDIA_ROOT) + "/" + file_name)
+    if file_server.exists():
+        nb_dl = cassette.nombre_de_download + 1
+        cassette.nombre_de_download = nb_dl
+        cassette.save()
+        file_to_download = open(file_server, 'rb')
+        file_name = file_name.split("/")[-1]
+        response = FileResponse(file_to_download, filename=file_name, content_type='application/force-download')
+        response['Content-Disposition'] = f'inline; filename="{ file_name }"'
+        return response
+    else:
+        return redirect(request.META['HTTP_REFERER'])
+
 def artistes(request):
-    artistes = Artiste.objects.all().order_by("-id_artiste")
+    artistes = Artiste.objects.all().exclude(publier=0).order_by("-id_artiste")
     paginator = Paginator(artistes, 20)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
@@ -73,7 +93,7 @@ def artiste_detail(request, id_artiste):
     )
 
 def events(request):
-    events = Event.objects.all().order_by("-date_event")
+    events = Event.objects.all().exclude(publier=0).order_by("-date_event")
     paginator = Paginator(events, 20)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
@@ -104,7 +124,7 @@ def live_archives(request):
     )
 
 def links(request):
-    artistes = Artiste.objects.all().values_list("nom", "lien_artiste")
+    artistes = Artiste.objects.all().exclude(publier=0).values_list("nom", "lien_artiste")
     paginator = Paginator(artistes, 20)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)

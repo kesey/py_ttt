@@ -64,6 +64,7 @@ class Artiste(models.Model):
     image_artiste = ResizedImageField(size=[600, 600], upload_to='image_artiste', blank=True, null=True)
     bio = tinymce_models.HTMLField(blank=True, null=True)
     lien_artiste = models.CharField(max_length=255, blank=True, null=True)
+    publier = models.BooleanField(default=False)
     suppr = models.BooleanField(default=False)
 
     cassette = models.ManyToManyField(Cassette, verbose_name="a produit") # , related_name="production")
@@ -81,6 +82,7 @@ class Event(models.Model):
     titre_event = models.CharField(max_length=255, blank=True, null=True)
     description_event = tinymce_models.HTMLField(blank=True, null=True)
     image_event = ResizedImageField(size=[600, 600], upload_to='image_event', blank=True, null=True)
+    publier = models.BooleanField(default=False)
     suppr = models.BooleanField(default=False)
 
     class Meta:
