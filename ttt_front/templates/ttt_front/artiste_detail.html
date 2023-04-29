@@ -3,7 +3,7 @@
 
 {% block content %}
     {% for a in artiste %}
-        <div class="row">
+        <div class="row infos_container">
             <div class="col-4 right_align image_container">
                 <h5>{{ a.nom }}</h5>
                 <img class="zoom" src="{{ a.image_artiste.url }}" title="artiste" alt="image_{{ a.nom }}">
@@ -12,12 +12,14 @@
         </div>
     {% endfor %}
     <!------------------------------------------------------------------------------release(s) produite(s) par l'artiste-------------------------------------------------------------------------------------->
-    {% for cassette in cassettes %}
-        <div class="show_infos min">
-            <a class="cover" href="{% url 'cassette_detail' cassette.id_cassette %}" >
-                <img class="min_image" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}">
-                <span class="item_infos min_info">{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</span>
-            </a>
-        </div>
-    {% endfor %}
+    <div class="infos_min_container">
+        {% for cassette in cassettes %}
+            <div class="show_infos min">
+                <a class="cover" href="{% url 'cassette_detail' cassette.id_cassette %}" >
+                    <img class="min_image" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}">
+                    <span class="item_infos min_info">{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock content %}
