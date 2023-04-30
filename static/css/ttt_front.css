@@ -123,10 +123,31 @@ body {
   margin-bottom: 20px;
 }
 /**********************************import components-style**********************************/
-/**********************************************menu********************************/
 header {
   padding-top: 10px;
   margin-bottom: 50px;
+}
+header .nav_menu {
+  text-align: center;
+  padding-top: 5px;
+}
+header .nav_menu ul li {
+  display: inline;
+  text-align: center;
+  padding: 3px 5px;
+  margin: 17px;
+  line-height: 40px;
+}
+header .nav_menu ul li a {
+  color: #ffffff;
+}
+header .nav_menu ul li a:hover {
+  color: #808080;
+}
+header .nav_menu ul li.active {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #ffffff;
 }
 .newsLetter {
   vertical-align: top;
@@ -150,28 +171,6 @@ header {
   border-radius: 5px;
   background-color: #808080;
   color: #ffffff;
-}
-.nav_menu {
-  text-align: center;
-  padding-top: 5px;
-}
-.nav_menu ul li {
-  display: inline;
-  text-align: center;
-  padding: 3px 5px;
-  margin: 17px;
-  line-height: 40px;
-}
-.nav_menu ul li a {
-  color: #ffffff;
-}
-.nav_menu ul li a:hover {
-  color: #808080;
-}
-.nav_menu ul li.active {
-  border-top: 1px solid;
-  border-bottom: 1px solid;
-  border-color: #ffffff;
 }
 .social_menu {
   text-align: center;
@@ -261,11 +260,6 @@ article.bottom {
 .shipping {
   font-size: 14px;
 }
-.download {
-  border: none;
-  background: none;
-  color: #ffffff;
-}
-.download:hover {
-  color: #53B4C4;
+.download_text {
+  margin-left: 5px;
 }

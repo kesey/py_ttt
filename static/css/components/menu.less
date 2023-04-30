@@ -1,8 +1,31 @@
-/**********************************************menu********************************/
-
 header {
     padding-top: 10px;
     margin-bottom: 50px;
+    
+    .nav_menu {
+        text-align: center;
+        padding-top: 5px;
+        ul {
+            li {
+                display: inline;
+                text-align: center;
+                padding: 3px 5px;
+                margin: 17px;
+                line-height: 40px;
+                a {
+                    color: @white;
+                    &:hover {
+                        color: @grey;
+                    }
+                }
+                &.active {
+                    border-top: 1px solid;
+                    border-bottom: 1px solid;
+                    border-color: @white;
+                }
+            }
+        }
+    }
 }
 
 .newsLetter {
@@ -24,31 +47,6 @@ header {
             border-radius: 5px;
             background-color: @grey;
             color: @white; 
-        }
-    }
-}
-
-.nav_menu {
-    text-align: center;
-    padding-top: 5px;
-    ul {
-        li {
-            display: inline;
-            text-align: center;
-            padding: 3px 5px;
-            margin: 17px;
-            line-height: 40px;
-            a {
-                color: @white;
-                &:hover {
-                    color: @grey;
-                }
-            }
-            &.active {
-                border-top: 1px solid;
-                border-bottom: 1px solid;
-                border-color: @white;
-            }
         }
     }
 }

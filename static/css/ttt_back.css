@@ -106,7 +106,10 @@ a {
 a:hover {
   color: #000000;
 }
-.numero_exemplaire {
+td {
+  text-align: center;
+}
+td .numero_exemplaire {
   width: 40px;
 }
 .stat {
