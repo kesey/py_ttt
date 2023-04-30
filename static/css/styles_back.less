@@ -1,31 +1,128 @@
 @import "./styles_global.less";
 
-a {
-    text-decoration: none;
-    color: @grey;
-    &:hover {
-        color: @black;
-    }
+@admin-blue: #0060df;
+@admin-dark-blue: #003eaa;
+@admin-grey: #ededf0;
+@admin-light-grey: #F0F0F4;
+@admin-text-color: #15141A;
+@admin-sec-text-color: #5B5B66;
+
+@admin-first-blue: #79aec8;
+@admin-second-blue: #417690;
+@admin-third-blue: #417893;
+@admin-hover-blue: #036;
+@admin-sel-blue: #5b80b2;
+@admin-border-color: #e8e8e8;
+@admin-td-color: #f8f8f8;
+@admin-error-color: #ba2121;
+@admin-yellow: #f5dd5d;
+@admin-light-black: #333;
+@admin-dark-grey: #666;
+@admin-light-white: #ffc;
+@admin-title-grey: #848484;
+
+/******************************************color-class*********************************/
+
+.admin-blue { 
+    color: @admin-blue;
 }
 
-td {
-    text-align: center;
-    .numero_exemplaire {
-        width: 40px;
-    }
+.admin-dark-blue { 
+    color: @admin-dark-blue;
 }
- 
-.stat {
-    display: inline-block;
-    margin: 12px;
+
+.admin-grey { 
+    color: @admin-grey;
+}
+
+.admin-light-grey { 
+    color: @admin-light-grey;
+}
+
+.admin-text-color { 
+    color: @admin-text-color;
+}
+
+.admin-sec-text-color { 
+    color: @admin-sec-text-color;
+}
+
+.admin-first-blue { 
+    color: @admin-first-blue;
+}
+
+.admin-second-blue { 
+    color: @admin-second-blue;
+}
+
+.admin-third-blue { 
+    color: @admin-third-blue;
+}
+
+.admin-hover-blue { 
+    color: @admin-hover-blue;
+}
+
+.admin-sel-blue { 
+    color: @admin-sel-blue;
+}
+
+.admin-border-color { 
+    color: @admin-border-color;
+}
+
+.admin-td-color {
+    color: @admin-td-color;
+}
+
+.admin-error-color { 
+    color: @admin-error-color;
+}
+
+.admin-yellow { 
+    color: @admin-yellow;
+}
+
+.admin-light-black { 
+    color: @admin-light-black;
+}
+
+.admin-dark-grey { 
+    color: @admin-dark-grey;
+}
+
+.admin-light-white { 
+    color: @admin-light-white;
+}
+
+.admin-title-grey {
+    color: @admin-title-grey;
+}
+
+/***************************************************************************************/
+
+* {
+    .transition(all, 0.15s, ease);
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: @admin-third-blue;
+    &:hover {
+        color: @admin-light-black;
+    }
 }
 
 /**********************************import components-style**********************************/
 
-// @import "./components/exemplaire_table.less";
-// @import "./components/item_list.less";
+@import "./components/custom_header.less";
+@import "./components/stat.less";
 
 /**********************************import partials-style************************************/
 
-// @import "./partials/header.less";
-// @import "./partials/footer.less";
+@import "./partials/gestion_exemplaire_detail.less";
+@import "./partials/gestion_exemplaire.less";

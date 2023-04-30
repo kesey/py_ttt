@@ -1,29 +1,66 @@
 {% load ttt_back_extras %}
 
-<div class="stat">
-    <p>Il reste {{ exemplaires_stat.en_stock }} exemplaire(s)</p>
-    <p>{{ exemplaires_stat.vendu }} exemplaire(s) a/ont été vendu(s)</p>
-    <p>{{ exemplaires_stat.depot }} exemplaire(s) est/sont en dépôt</p>
-    <p>{{ exemplaires_stat.offert }} exemplaire(s) a/ont été donné(s)</p>
-    <p>{{ exemplaires_stat.hors_stock }} exemplaire(s) est/sont hors stock</p>
-</div>
-<div class="stat">
+<table class="stat">
+    <caption>EXEMPLAIRES</caption>
+    <tbody>
+        <tr>
+            <td>Il reste {{ exemplaires_stat.en_stock }} exemplaire(s)</td>
+        </tr>
+        <tr>
+            <td>{{ exemplaires_stat.vendu }} exemplaire(s) a/ont été vendu(s)</td>
+        </tr>
+        <tr>
+            <td>{{ exemplaires_stat.depot }} exemplaire(s) est/sont en dépôt</td>
+        </tr>
+        <tr>
+            <td>{{ exemplaires_stat.offert }} exemplaire(s) a/ont été donné(s)</td>
+        </tr>
+        <tr>
+            <td>{{ exemplaires_stat.hors_stock }} exemplaire(s) est/sont hors stock</td>
+        </tr>
+    </tbody>
+</table>
+<table class="stat">
+    <caption>VENTES</caption>
+    <tbody>
     {% for vendeur, stat in vendeurs_stat.items %}
-        <p>{{ vendeur }} a vendu pour {{ stat.a_vendu_pour|zero_display }} Euros</p>
+        <tr>
+            <td>{{ vendeur }} a vendu pour {{ stat.a_vendu_pour|zero_display }} Euros</td>
+        </tr>
     {% endfor %}
-</div>
-<div class="stat">
+    </tbody>
+</table>
+<table class="stat">
+    <caption>DETTES</caption>
+    <tbody>
     {% for vendeur, stat in vendeurs_stat.items %}
-        <p>{{ vendeur }} doit {{ stat.doit|zero_display }} Euros à TTT</p>
+        <tr>
+            <td>{{ vendeur }} doit {{ stat.doit|zero_display }} Euros à TTT</td>
+        </tr>
     {% endfor %}
-</div>
-<div class="stat">
+    </tbody>
+</table>
+<table class="stat">
+    <caption>DUS</caption>
+    <tbody>
     {% for vendeur, stat in vendeurs_stat.items %}
-        <p>frais de port dus à {{ vendeur }}: {{ stat.doit_recup|zero_display }} Euros</p>
+        <tr>
+            <td>frais de port dus à {{ vendeur }}: {{ stat.doit_recup|zero_display }} Euros</td>
+        </tr>
     {% endfor %}
-</div>
-<div class="stat">
-    <p>Nombre de téléchargement(s) total: {{ cassette_stat.nombre_de_download }}</p>
-    <p>Total des ventes: {{ exemplaires_stat.ventes_totales }} Euros</p>
-    <p>Bénéfices (total des ventes - montant fdp total): {{ exemplaires_stat.gains_reels }} Euros</p>
-</div>
+    </tbody>
+</table>
+<table class="stat">
+    <caption>TOTAL</caption>
+    <tbody>
+        <tr>
+            <td>Nombre de téléchargement(s) total: {{ cassette_stat.nombre_de_download }}</td>
+        </tr>
+        <tr>
+            <td>Total des ventes: {{ exemplaires_stat.ventes_totales }} Euros</td>
+        </tr>
+        <tr>
+            <td>Bénéfices (total des ventes - montant fdp total): {{ exemplaires_stat.gains_reels }} Euros</td>
+        </tr>
+    </tbody>
+</table>

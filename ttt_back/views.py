@@ -12,7 +12,7 @@ from django.db.models import Sum
 @login_required
 def gestion_exemplaire(request, *args, **kwargs): # create a custom admin view
     cassettes = Cassette.objects.all().order_by("-date_sortie")
-    paginator = Paginator(cassettes, 20)
+    paginator = Paginator(cassettes, 15)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
     context = { "page": page }
@@ -29,7 +29,10 @@ class Calcul:
         for etat in etats:
             exemplaires_stat[etat.description_etat.replace("-", "_")] = exemplaires.filter(id_etat=etat.id_etat_exemplaire).count()
         exemplaires_stat["ventes_totales"] = exemplaires.aggregate(ventes_totales = Sum("prix_vente_euros"))["ventes_totales"]
-        exemplaires_stat["gains_reels"] = exemplaires_stat["ventes_totales"] - exemplaires.aggregate(gains_reels = Sum("montant_frais_de_port"))["gains_reels"]
+        exemplaires_stat["ventes_totales"] = exemplaires_stat["ventes_totales"] if exemplaires_stat["ventes_totales"] else 0
+        total_fdp = exemplaires.aggregate(fdp_total = Sum("montant_frais_de_port"))["fdp_total"]
+        total_fdp = total_fdp if total_fdp else 0
+        exemplaires_stat["gains_reels"] = exemplaires_stat["ventes_totales"] - total_fdp
         return exemplaires_stat
 
     def vendeurs_stat(self, exemplaires):

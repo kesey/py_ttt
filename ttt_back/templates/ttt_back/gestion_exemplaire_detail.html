@@ -2,17 +2,17 @@
 {% load ttt_back_extras %}
 
 {% block content %}
-    <h2>Gestion Exemplaires</h2>
-    <div>
+    <div class="custom_header">
+        <h4 class="title">Gestion Exemplaires</h4>
         <a href="{% url 'gestion_exemplaire' %}">Retour à la liste des cassettes</a>
     </div>
-    <h2>{{ cassette_stat.code }} {{ cassette_stat.titre }}</h2>
+    <h2 class="sub_title">{{ cassette_stat.code }} {{ cassette_stat.titre }}</h2>
     {% include 'ttt_back/partials/stat_snippet.html' %}
     <form method="post">
         {% csrf_token %}
         {{ formset.non_form_errors.as_ul }}
         {{ formset.management_form }} 
-        <table id="formset" class="exemplaire_form">
+        <table id="formset" class="stat exemplaire_form">
             {% for form in formset.forms %}
                 {% if forloop.first %}
                     <thead>
@@ -51,4 +51,9 @@
         </table>
         <button type="submit">Sauvegarder</button>
     </form>
+    <div class="anchor">
+        <a href="#">
+            <i class="fa-solid fa-hand-point-up fa-2xl"></i>
+        </a>
+    </div>
 {% endblock content %}

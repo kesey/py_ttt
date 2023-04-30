@@ -1,0 +1,27 @@
+.stat {
+    display: inline-block;
+    border-collapse: collapse;
+    margin: 20px 40px 40px 40px;
+    tr {
+        &:nth-child(even) {
+            background-color: @admin-td-color;
+        }
+        td {
+            text-align: left;
+            padding: 8px;
+            color: @admin-third-blue;
+            font-weight: 600;
+            border-bottom: 1px solid @admin-border-color;
+            
+        }
+    }
+    caption {
+        background-color: @admin-first-blue;
+        text-align: left;
+        padding: 8px;
+        padding-top: 10px;
+        font-weight: 500;
+        font-size: 13.5px;
+        color: @white;
+    }
+}

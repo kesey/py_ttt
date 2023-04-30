@@ -1,7 +1,9 @@
 {% extends "base_back.html" %}
 
 {% block content %}
-    <h2>Compta</h2>
+    <div class="custom_header">
+        <h4 class="title">Compta</h4>
+        <a href="/admin/">retour à l'admin</a>
+    </div>
     {% include 'ttt_back/partials/stat_snippet.html' %}
-    <div><a href="/admin/">retour à l'admin</a></div>
 {% endblock content %}

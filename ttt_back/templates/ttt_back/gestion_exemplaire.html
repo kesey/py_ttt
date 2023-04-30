@@ -1,16 +1,22 @@
 {% extends "base_back.html" %}
 
 {% block content %}
-    <h2>Liste des Cassettes</h2>
-    <ul>
-        {% for cassette in page %}
-        <li>
-            <a href="{% url 'gestion_exemplaire_detail' cassette.id_cassette %}">
-                {{ cassette }}
-            </a>    
-        </li>
-        {% endfor %}
-    </ul>
-    {% include 'ttt_back/partials/pagination_snippet.html' %}
-    <div><a href="/admin/">retour à l'admin</a></div>
+    <div class="custom_header">
+        <h4 class="title">Liste des Cassettes</h4>
+        <a href="/admin/">retour à l'admin</a>
+    </div>
+    <table class="stat">
+        <tbody>
+            {% for cassette in page %}
+            <tr>
+                <td>
+                    <a href="{% url 'gestion_exemplaire_detail' cassette.id_cassette %}">{{ cassette }}</a>
+                </td>    
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="gestion_ex_pagination">
+        {% include 'ttt_back/partials/pagination_snippet.html' %}
+    </div>
 {% endblock content %}
