@@ -12,7 +12,7 @@
         {% csrf_token %}
         {{ formset.non_form_errors.as_ul }}
         {{ formset.management_form }} 
-        <table id="formset" class="stat exemplaire_form">
+        <table id="formset" class="stat exemplaire_table">
             {% for form in formset.forms %}
                 {% if forloop.first %}
                     <thead>
@@ -49,9 +49,9 @@
                 {% endif %}
             {% endfor %}
         </table>
-        <button type="submit">Sauvegarder</button>
+        <button class="save_list_exemplaire" type="submit">Sauvegarder</button>
     </form>
-    <div class="anchor">
+    <div class="anchor anchor_back">
         <a href="#">
             <i class="fa-solid fa-hand-point-up fa-2xl"></i>
         </a>

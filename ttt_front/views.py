@@ -125,7 +125,7 @@ def live_archives(request):
 
 def links(request):
     artistes = Artiste.objects.all().exclude(publier=0).values_list("nom", "lien_artiste")
-    paginator = Paginator(artistes, 20)
+    paginator = Paginator(artistes, 15)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
     context = {

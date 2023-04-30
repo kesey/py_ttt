@@ -150,6 +150,12 @@ a:hover {
 .admin-error-color {
   color: #ba2121;
 }
+.admin-save {
+  color: #d9534f;
+}
+.admin-save-hover {
+  color: #be5058;
+}
 .admin-yellow {
   color: #f5dd5d;
 }
@@ -167,11 +173,11 @@ a:hover {
 }
 /***************************************************************************************/
 * {
-  -webkit-transition: all 0.15s ease;
-  -moz-transition: all 0.15s ease;
-  -o-transition: all 0.15s ease;
-  -ms-transition: all 0.15s ease;
-  transition: all 0.15s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
   font-family: 'Roboto', sans-serif;
   font-size: 13px;
   padding: 0px;
@@ -235,15 +241,36 @@ a:hover {
   font-size: 16px;
   font-weight: 400;
 }
-.exemplaire_form td {
+.exemplaire_table td {
   text-align: center;
 }
-.exemplaire_form td .numero_exemplaire {
+.exemplaire_table td .numero_exemplaire {
   width: 40px;
 }
-.exemplaire_form td input,
-.exemplaire_form td select {
+.exemplaire_table td input,
+.exemplaire_table td select {
   padding: 3px;
+}
+.save_list_exemplaire {
+  padding: 8px;
+  cursor: pointer;
+  background-color: #d9534f;
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+  position: fixed;
+  right: 120px;
+  bottom: 8px;
+  z-index: 1;
+  visibility: hidden;
+}
+.save_list_exemplaire:hover {
+  border-radius: 5px;
+  background-color: #be5058;
+}
+.anchor.anchor_back {
+  bottom: 8px;
+  margin-bottom: 3px;
 }
 .gestion_ex_pagination {
   margin-left: 20px;

@@ -5,7 +5,7 @@
     font-weight: 400;
 }
 
-.exemplaire_form {
+.exemplaire_table {
     td {
         text-align: center;
         .numero_exemplaire {
@@ -15,4 +15,27 @@
             padding: 3px;
         }
     }
+}
+
+.save_list_exemplaire {
+    padding: 8px;
+    cursor: pointer;
+    background-color: @admin-save;
+    color: @white;
+    border-radius: 5px;
+    border: none;
+    position: fixed;
+    right: 120px;
+    bottom: 8px;
+    z-index: 1;
+    visibility: hidden;
+    &:hover {
+        border-radius: 5px;
+        background-color: @admin-save-hover;
+    }
+}
+
+.anchor.anchor_back {
+    bottom: 8px;
+    margin-bottom: 3px;
 }
