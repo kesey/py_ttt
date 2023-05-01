@@ -26,6 +26,20 @@
                                 {% endif %}
                             {% endfor %}
                         </tr>
+                        <tr>
+                            {% for field in form.visible_fields %} <!-- order table -->
+                                <td>
+                                    <form class="ilb" method="get">
+                                        <input type="hidden" name="order_search" value="{{ field.name }}">
+                                        <button type="submit"><i class="fa-solid fa-sort-up"></i></button>
+                                    </form>
+                                    <form class="ilb" method="get">
+                                        <input type="hidden" name="order_search" value="-{{ field.name }}">
+                                        <button type="submit"><i class="fa-solid fa-sort-down"></i></button>
+                                    </form>
+                                </td>
+                            {% endfor %}
+                        </tr>
                     </thead>
                 {% endif %}
                 {% if not forloop.last %}

@@ -117,7 +117,10 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
     exemplaires_formset = modelformset_factory(Exemplaire, exclude=["id_cassette"])
     
     def get(self, request, **kwargs): # use **kwargs to get url parameters
-        exemplaires = Exemplaire.objects.filter(id_cassette=kwargs["id_cassette"])
+        order = "numero_exemplaire"
+        if request.GET.get("order_search"): # change order of exemplaire table
+            order = request.GET.get("order_search")
+        exemplaires = Exemplaire.objects.filter(id_cassette=kwargs["id_cassette"]).order_by(order)
         exemplaires_formset = self.exemplaires_formset(queryset=exemplaires)
         exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
         vendeurs_stat = Calcul().vendeurs_stat(exemplaires)
@@ -142,7 +145,7 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
                 if form.cleaned_data:
                     form.save()
         exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
-        if not exemplaires_stat.en_stock: # if no exemplaire left the cassette is sold out
+        if not exemplaires_stat["en_stock"]: # if no exemplaire left the cassette is sold out
             cassette = Cassette.objects.filter(id_cassette=kwargs["id_cassette"])
             cassette = cassette.get()
             if not cassette.sold_out:
