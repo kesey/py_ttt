@@ -144,6 +144,9 @@ a:hover {
 .admin-border-color {
   color: #e8e8e8;
 }
+.admin-border-input {
+  color: #cccccc;
+}
 .admin-td-color {
   color: #f8f8f8;
 }
@@ -190,6 +193,16 @@ a {
 a:hover {
   color: #333;
 }
+.back_button {
+  padding: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+}
+.back_button:hover {
+  border-radius: 5px;
+}
 /**********************************import components-style**********************************/
 .custom_header {
   background-color: #417690;
@@ -206,9 +219,17 @@ a:hover {
   display: inline-block;
 }
 .custom_header a {
-  font-size: initial;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   float: right;
-  padding-top: 6px;
+  padding-top: 10px;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+.custom_header a:hover {
+  border-bottom: none;
 }
 .stat {
   display: inline-block;
@@ -234,6 +255,9 @@ a:hover {
   font-size: 13.5px;
   color: #ffffff;
 }
+.cassette_list {
+  vertical-align: top;
+}
 /**********************************import partials-style************************************/
 .sub_title {
   padding: 10px 40px;
@@ -251,20 +275,15 @@ a:hover {
 .exemplaire_table td select {
   padding: 3px;
 }
-.save_list_exemplaire {
-  padding: 8px;
-  cursor: pointer;
+.back_button.save_button {
   background-color: #d9534f;
-  color: #ffffff;
-  border-radius: 5px;
-  border: none;
   position: fixed;
   right: 120px;
   bottom: 8px;
   z-index: 1;
   visibility: hidden;
 }
-.save_list_exemplaire:hover {
+.back_button.save_button:hover {
   border-radius: 5px;
   background-color: #be5058;
 }
@@ -279,4 +298,19 @@ a:hover {
 .gestion_ex_pagination span,
 .gestion_ex_pagination a {
   font-size: 14px;
+}
+.search_input {
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 7px 6px;
+}
+.search_input:focus {
+  border: 1px solid #cccccc;
+}
+.back_button.search_button {
+  background-color: #79aec8;
+}
+.back_button.search_button:hover {
+  border-radius: 5px;
+  background-color: #417893;
 }

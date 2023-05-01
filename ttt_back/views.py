@@ -7,15 +7,31 @@ from ttt_back.models import Exemplaire, EtatExemplaire, ComptaVendeur
 from authentication.models import User
 from django.core.paginator import Paginator
 from django.forms import modelformset_factory
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 @login_required
 def gestion_exemplaire(request, *args, **kwargs): # create a custom admin view
-    cassettes = Cassette.objects.all().order_by("-date_sortie")
+    cassette_obj = Cassette.objects
+    if request.GET.get("q"): # search query
+        query = request.GET.get("q")
+        search_results = cassette_obj.filter(
+            Q(titre__icontains=query) | 
+            Q(code__icontains=query) | 
+            Q(date_sortie__icontains=query) | 
+            Q(description__icontains=query) | 
+            Q(longueur__icontains=query)
+        )
+        search_results = search_results.order_by("-date_sortie")
+    else:
+        search_results = ""
+    cassettes = cassette_obj.all().order_by("-date_sortie")
     paginator = Paginator(cassettes, 15)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
-    context = { "page": page }
+    context = { 
+        "page": page,
+        "search_results": search_results
+    }
     return render(
         request,
         "ttt_back/gestion_exemplaire.html",

@@ -13,6 +13,7 @@
 @admin-hover-blue: #036;
 @admin-sel-blue: #5b80b2;
 @admin-border-color: #e8e8e8;
+@admin-border-input: #cccccc;
 @admin-td-color: #f8f8f8;
 @admin-error-color: #ba2121;
 @admin-save: #d9534f;
@@ -73,6 +74,10 @@
     color: @admin-border-color;
 }
 
+.admin-border-input {
+    color: @admin-border-input;
+}
+
 .admin-td-color {
     color: @admin-td-color;
 }
@@ -124,6 +129,17 @@ a {
     color: @admin-third-blue;
     &:hover {
         color: @admin-light-black;
+    }
+}
+
+.back_button {
+    padding: 8px;
+    cursor: pointer;
+    color: @white;
+    border-radius: 5px;
+    border: none;
+    &:hover {
+        border-radius: 5px;
     }
 }
 

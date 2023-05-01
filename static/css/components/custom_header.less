@@ -11,8 +11,16 @@
         display: inline-block;
     }
     a {
-        font-size: initial;
+        font-weight: 300;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
         float: right;
-        padding-top: 6px;
+        padding-top: 10px;
+        color: @white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        &:hover {
+            border-bottom: none;
+        }
     }
 }

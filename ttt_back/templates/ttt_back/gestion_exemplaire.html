@@ -5,18 +5,39 @@
         <h4 class="title">Liste des Cassettes</h4>
         <a href="/admin/">retour à l'admin</a>
     </div>
-    <table class="stat">
-        <tbody>
-            {% for cassette in page %}
-            <tr>
-                <td>
-                    <a href="{% url 'gestion_exemplaire_detail' cassette.id_cassette %}">{{ cassette }}</a>
-                </td>    
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="gestion_ex_pagination">
-        {% include 'ttt_back/partials/pagination_snippet.html' %}
+    <div class="ilb cassette_list">
+        <table class="stat">
+            <tbody>
+                {% for cassette in page %}
+                <tr>
+                    <td>
+                        <a href="{% url 'gestion_exemplaire_detail' cassette.id_cassette %}">{{ cassette }}</a>
+                    </td>    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="gestion_ex_pagination">
+            {% include 'ttt_back/partials/pagination_snippet.html' %}
+        </div>
+    </div>
+    <div class="ilb center">
+        <form method="get">
+            <input class="search_input" name="q" type="text" placeholder="Rechercher...">
+            <button class="back_button search_button" type="submit">Rechercher</button>
+        </form>
+        <div>
+            <table class="stat bl">
+                <tbody>
+                    {% for result in search_results %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'gestion_exemplaire_detail' result.id_cassette %}">{{ result }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock content %}

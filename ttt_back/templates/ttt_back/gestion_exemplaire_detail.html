@@ -4,7 +4,8 @@
 {% block content %}
     <div class="custom_header">
         <h4 class="title">Gestion Exemplaires</h4>
-        <a href="{% url 'gestion_exemplaire' %}">Retour à la liste des cassettes</a>
+        <a href="/admin/"> / retour à l'admin</a>
+        <a href="{% url 'gestion_exemplaire' %}">retour à la liste des cassettes / </a>
     </div>
     <h2 class="sub_title">{{ cassette_stat.code }} {{ cassette_stat.titre }}</h2>
     {% include 'ttt_back/partials/stat_snippet.html' %}
@@ -49,7 +50,7 @@
                 {% endif %}
             {% endfor %}
         </table>
-        <button class="save_list_exemplaire" type="submit">Sauvegarder</button>
+        <button class="back_button save_button" type="submit">Sauvegarder</button>
     </form>
     <div class="anchor anchor_back">
         <a href="#">
