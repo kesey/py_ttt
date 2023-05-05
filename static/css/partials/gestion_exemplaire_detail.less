@@ -6,31 +6,57 @@
 }
 
 .exemplaire_table {
+    margin: auto auto 44px auto;
     td {
-        text-align: center;
         .numero_exemplaire {
             width: 40px;
+            &.select {
+                width: 15px;
+            }
         }
         input, select {
             padding: 3px;
         }
-        .col_order {
-            display: block;
-            height: 6px;
+        &.reorder {
+            text-align: center;
+            .col_order {
+                display: block;
+                height: 6px;
+                width: 12px;
+                margin: auto;
+            }
         }
     }
 }
 
-.back_button.save_button {
-    background-color: @admin-save;
+.back_button {
     position: fixed;
-    right: 120px;
     bottom: 8px;
     z-index: 1;
     visibility: hidden;
     &:hover {
         border-radius: 5px;
-        background-color: @admin-save-hover;
+    }
+    &.save_button {
+        background-color: @admin-save;
+        right: 120px;
+        &:hover {
+            background-color: @admin-save-hover;
+        }
+    }
+    &.copy_button {
+        background-color: @admin-sel-blue;
+        right: 270px;
+        &:hover {
+            background-color: @admin-third-blue;
+        }
+    }
+    &.paste_button {
+        background-color: @admin-blue;
+        right: 214px;
+        &:hover {
+            background-color: @admin-dark-blue;
+        }
     }
 }
 

@@ -265,31 +265,57 @@ a:hover {
   font-size: 16px;
   font-weight: 400;
 }
-.exemplaire_table td {
-  text-align: center;
+.exemplaire_table {
+  margin: auto auto 44px auto;
 }
 .exemplaire_table td .numero_exemplaire {
   width: 40px;
+}
+.exemplaire_table td .numero_exemplaire.select {
+  width: 15px;
 }
 .exemplaire_table td input,
 .exemplaire_table td select {
   padding: 3px;
 }
-.exemplaire_table td .col_order {
+.exemplaire_table td.reorder {
+  text-align: center;
+}
+.exemplaire_table td.reorder .col_order {
   display: block;
   height: 6px;
+  width: 12px;
+  margin: auto;
 }
-.back_button.save_button {
-  background-color: #d9534f;
+.back_button {
   position: fixed;
-  right: 120px;
   bottom: 8px;
   z-index: 1;
   visibility: hidden;
 }
-.back_button.save_button:hover {
+.back_button:hover {
   border-radius: 5px;
+}
+.back_button.save_button {
+  background-color: #d9534f;
+  right: 120px;
+}
+.back_button.save_button:hover {
   background-color: #be5058;
+}
+.back_button.copy_button {
+  background-color: #5b80b2;
+  right: 270px;
+}
+.back_button.copy_button:hover {
+  background-color: #417893;
+}
+.back_button.paste_button {
+  background-color: #0060df;
+  right: 214px;
+}
+.back_button.paste_button:hover {
+  background-color: #003eaa;
 }
 .anchor.anchor_back {
   bottom: 8px;

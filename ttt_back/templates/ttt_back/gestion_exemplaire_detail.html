@@ -18,6 +18,7 @@
                 {% if forloop.first %}
                     <thead>
                         <tr>
+                            <th></th>
                             {% for field in form.visible_fields %}
                                 {% if field.label|startswith:"Id" %}
                                     <th>{{ field.label|truncstart:2 }}</th>
@@ -27,8 +28,9 @@
                             {% endfor %}
                         </tr>
                         <tr>
+                            <td></td>
                             {% for field in form.visible_fields %} <!-- order table -->
-                                <td>
+                                <td class="reorder">
                                     <a class="col_order" href="{{ request.path }}?order_list={{ field.name }}">
                                         <i class="fa-solid fa-sort-up"></i>
                                     </a>
@@ -42,6 +44,9 @@
                 {% endif %}
                 {% if not forloop.last %}
                     <tr class="exemplaire_tr exemplaire_tr_{{ forloop.counter0 }}">
+                        <td>
+                            <input type="radio" class="select numero_exemplaire" name="copy">
+                        </td>
                         {% for field in form.visible_fields %}
                             <td class="exemplaire_td exemplaire_td_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}">
                                 {# Include the hidden fields in the form #}
@@ -53,6 +58,8 @@
                                 {{ field.errors.as_ul }}
                                 {% if field.label == "Numero exemplaire" %}
                                     <input type="text" id="id_form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" name="form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" value="{{ field.value }}" class="numero_exemplaire center numero_exemplaire_{{ forloop.parentloop.counter0 }}" disabled>
+                                {% elif field.name == "id_etat" %}
+                                    <div class="etat_exemplaire">{{ field }}</div>
                                 {% else %}
                                     {{ field }}
                                 {% endif %}
@@ -62,6 +69,8 @@
                 {% endif %}
             {% endfor %}
         </table>
+        <button class="back_button copy_button" type="button" id="copyButt">Copier</button>
+        <button class="back_button paste_button" type="button" id="pasteButt">Coller</button>
         <button class="back_button save_button" type="submit">Sauvegarder</button>
     </form>
     <div class="anchor anchor_back">
