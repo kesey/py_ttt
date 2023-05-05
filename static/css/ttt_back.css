@@ -342,6 +342,8 @@ a:hover {
 }
 .back_button.search_button {
   background-color: #79aec8;
+  visibility: visible;
+  position: inherit;
 }
 .back_button.search_button:hover {
   border-radius: 5px;
