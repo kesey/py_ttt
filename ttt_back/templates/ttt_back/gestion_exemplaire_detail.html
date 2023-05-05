@@ -29,14 +29,12 @@
                         <tr>
                             {% for field in form.visible_fields %} <!-- order table -->
                                 <td>
-                                    <form class="ilb" method="get">
-                                        <input type="hidden" name="order_search" value="{{ field.name }}">
-                                        <button type="submit"><i class="fa-solid fa-sort-up"></i></button>
-                                    </form>
-                                    <form class="ilb" method="get">
-                                        <input type="hidden" name="order_search" value="-{{ field.name }}">
-                                        <button type="submit"><i class="fa-solid fa-sort-down"></i></button>
-                                    </form>
+                                    <a class="col_order" href="{{ request.path }}?order_list={{ field.name }}">
+                                        <i class="fa-solid fa-sort-up"></i>
+                                    </a>
+                                    <a href="{{ request.path }}?order_list=-{{ field.name }}">
+                                        <i class="fa-solid fa-sort-down"></i>
+                                    </a>
                                 </td>
                             {% endfor %}
                         </tr>

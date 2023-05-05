@@ -12,8 +12,8 @@ from django.db.models import Sum, Q
 @login_required
 def gestion_exemplaire(request, *args, **kwargs): # create a custom admin view
     cassette_obj = Cassette.objects
-    if request.GET.get("q"): # search query
-        query = request.GET.get("q")
+    if request.GET.get("search_query"): # search query
+        query = request.GET.get("search_query")
         search_results = cassette_obj.filter(
             Q(titre__icontains=query) | 
             Q(code__icontains=query) | 
@@ -118,8 +118,8 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
     
     def get(self, request, **kwargs): # use **kwargs to get url parameters
         order = "numero_exemplaire"
-        if request.GET.get("order_search"): # change order of exemplaire table
-            order = request.GET.get("order_search")
+        if request.GET.get("order_list"): # change order of exemplaire table
+            order = request.GET.get("order_list")
         exemplaires = Exemplaire.objects.filter(id_cassette=kwargs["id_cassette"]).order_by(order)
         exemplaires_formset = self.exemplaires_formset(queryset=exemplaires)
         exemplaires_stat = Calcul().exemplaires_stat(exemplaires)

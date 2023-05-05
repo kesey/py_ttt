@@ -275,6 +275,10 @@ a:hover {
 .exemplaire_table td select {
   padding: 3px;
 }
+.exemplaire_table td .col_order {
+  display: block;
+  height: 6px;
+}
 .back_button.save_button {
   background-color: #d9534f;
   position: fixed;
@@ -306,6 +310,9 @@ a:hover {
 }
 .search_input:focus {
   border: 1px solid #cccccc;
+}
+.ilb.center {
+  min-width: 380px;
 }
 .back_button.search_button {
   background-color: #79aec8;
