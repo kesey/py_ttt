@@ -193,15 +193,8 @@ a {
 a:hover {
   color: #333;
 }
-.back_button {
-  padding: 8px;
-  cursor: pointer;
-  color: #ffffff;
-  border-radius: 5px;
-  border: none;
-}
-.back_button:hover {
-  border-radius: 5px;
+.message {
+  margin: 20px;
 }
 /**********************************import components-style**********************************/
 .custom_header {
@@ -257,6 +250,16 @@ a:hover {
 }
 .cassette_list {
   vertical-align: top;
+}
+.back_button {
+  padding: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+}
+.back_button:hover {
+  border-radius: 5px;
 }
 /**********************************import partials-style************************************/
 .sub_title {

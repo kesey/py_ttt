@@ -9,6 +9,7 @@
     </div>
     <h2 class="sub_title">{{ cassette_stat.code }} {{ cassette_stat.titre }}</h2>
     {% include 'ttt_back/partials/stat_snippet.html' %}
+    <p class="message">{{ message }}</p>
     <form method="post">
         {% csrf_token %}
         {{ formset.non_form_errors.as_ul }}
@@ -58,7 +59,7 @@
                                 {{ field.errors.as_ul }}
                                 {% if field.label == "Numero exemplaire" %}
                                     <input type="text" id="id_form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" name="form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" value="{{ field.value }}" class="numero_exemplaire center numero_exemplaire_{{ forloop.parentloop.counter0 }}" disabled>
-                                {% elif field.name == "id_etat" %}
+                                {% elif field.name == "id_etat_exemplaire" %}
                                     <div class="etat_exemplaire">{{ field }}</div>
                                 {% else %}
                                     {{ field }}

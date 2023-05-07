@@ -1,0 +1,16 @@
+{% extends "base_back.html" %}
+
+{% block content %}
+    <div class="custom_header">
+        <h4 class="title">Vente Rapide</h4>
+        <a href="/admin/">retour à l'admin</a>
+    </div>
+    <div>
+        <p class="message">{{ message }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Vente</button>
+        </form>
+    </div>
+{% endblock content %}

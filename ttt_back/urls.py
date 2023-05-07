@@ -10,5 +10,6 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('admin/gestion_exemplaire/<int:id_cassette>/', ttt_back.views.Gestion_exemplaire_detail.as_view(), name="gestion_exemplaire_detail"),
     path('admin/gestion_exemplaire/', ttt_back.views.gestion_exemplaire, name="gestion_exemplaire"),
+    path('admin/vente_rapide/', ttt_back.views.Vente_rapide.as_view(), name="vente_rapide"),
     path('admin/', admin.site.urls),
 ]

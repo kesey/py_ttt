@@ -3,10 +3,10 @@ $(document).ready(function() {
         var scroll = $(window).scrollTop();
         if (scroll > 145) {
             $(".anchor").css("visibility", "visible");
-            $(".back_button").css("visibility", "visible");
+            $(".copy_button, .paste_button, .save_button").css("visibility", "visible");
         } else {
             $(".anchor").css("visibility", "hidden");
-            $(".back_button").css("visibility", "hidden");
+            $(".copy_button, .paste_button, .save_button").css("visibility", "hidden");
         }
     });
 

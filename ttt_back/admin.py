@@ -1,6 +1,6 @@
 from django.contrib import admin
 from ttt_back.models import Client, ComptaVendeur
-from ttt_back.views import gestion_exemplaire, compta
+from ttt_back.views import gestion_exemplaire, compta, Vente_rapide
 from adminplus.sites import AdminSitePlus
 
 admin.site = AdminSitePlus()
@@ -14,7 +14,19 @@ admin.site.register_view(
     visible=True
 )
 
-admin.site.register_view('compta/', name="comptabilité", view=compta, urlname="compta")
+admin.site.register_view(
+    'compta/',
+    name="comptabilité",
+    view=compta,
+    urlname="compta"
+)
+
+admin.site.register_view(
+    'vente_rapide/',
+    name="vente rapide",
+    view=Vente_rapide.as_view(),
+    urlname="vente_rapide"
+)
 
 class ComptaVendeurAdmin(admin.ModelAdmin):
     list_display = ("id_vendeur", "a_rembourse", "a_recupere")

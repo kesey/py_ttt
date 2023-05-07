@@ -4,14 +4,17 @@ from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from ttt_front.models import Cassette
 from ttt_back.models import Exemplaire, EtatExemplaire, ComptaVendeur
+from ttt_back.forms import VenteRapideForm
 from authentication.models import User
 from django.core.paginator import Paginator
 from django.forms import modelformset_factory
 from django.db.models import Sum, Q
+import datetime
 
 @login_required
 def gestion_exemplaire(request, *args, **kwargs): # create a custom admin view
     cassette_obj = Cassette.objects
+    message = ""
     if request.GET.get("search_query"): # search query
         query = request.GET.get("search_query")
         search_results = cassette_obj.filter(
@@ -22,6 +25,8 @@ def gestion_exemplaire(request, *args, **kwargs): # create a custom admin view
             Q(longueur__icontains=query)
         )
         search_results = search_results.order_by("-date_sortie")
+        if not search_results:
+            message = "Aucun résultat trouvé"
     else:
         search_results = ""
     cassettes = cassette_obj.all().order_by("-date_sortie")
@@ -30,7 +35,8 @@ def gestion_exemplaire(request, *args, **kwargs): # create a custom admin view
     page = paginator.get_page(page_number)
     context = { 
         "page": page,
-        "search_results": search_results
+        "search_results": search_results,
+        "message": message
     }
     return render(
         request,
@@ -43,7 +49,7 @@ class Calcul:
         etats = EtatExemplaire.objects.all()
         exemplaires_stat = {}
         for etat in etats:
-            exemplaires_stat[etat.description_etat.replace("-", "_")] = exemplaires.filter(id_etat=etat.id_etat_exemplaire).count()
+            exemplaires_stat[etat.description_etat.replace("-", "_")] = exemplaires.filter(id_etat_exemplaire=etat.id_etat_exemplaire).count()
         exemplaires_stat["ventes_totales"] = exemplaires.aggregate(ventes_totales = Sum("prix_vente_euros"))["ventes_totales"]
         exemplaires_stat["ventes_totales"] = exemplaires_stat["ventes_totales"] if exemplaires_stat["ventes_totales"] else 0
         total_fdp = exemplaires.aggregate(fdp_total = Sum("montant_frais_de_port"))["fdp_total"]
@@ -93,6 +99,55 @@ class Calcul:
         cassette_stat["code"] = cassette[1]
         cassette_stat["titre"] = cassette[2]
         return cassette_stat
+    
+class Vente_rapide(LoginRequiredMixin, View):
+    template_name = "ttt_back/vente_rapide.html"
+    form_class = VenteRapideForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial={'prix_vente_euros': 6.00, 'vente_rembousee': False, 'commentaire': f"vente rapide de { request.user.first_name }"})
+        return render(
+            request,
+            self.template_name,
+            { "form": form }
+        )
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            exemplaires = Exemplaire.objects.filter(
+                Q(id_cassette=form.cleaned_data['id_cassette'].id_cassette) & 
+                Q(id_etat_exemplaire=1)
+            )
+            exemplaire = exemplaires.first()
+            if exemplaire:
+                exemplaire.id_vendeur = request.user
+                etat = EtatExemplaire.objects.filter(id_etat_exemplaire=2)
+                exemplaire.id_etat_exemplaire = etat.get()
+                exemplaire.date_vente = datetime.datetime.now().strftime("%Y-%m-%d")
+                exemplaire.prix_vente_euros = form.cleaned_data['prix_vente_euros']
+                exemplaire.vente_remboursee = form.cleaned_data['vente_remboursee']
+                exemplaire.commentaire = form.cleaned_data['commentaire']
+                # exemplaire.save()
+                message = "Exemplaire vendu"
+            else:
+                cassette = Cassette.objects.filter(id_cassette=form.cleaned_data['id_cassette'].id_cassette)
+                cassette = cassette.get()
+                if not cassette.sold_out:
+                    cassette.sold_out = True
+                    cassette.save()
+                message = "Il n'y a plus d'exemplaire disponible"
+        else:
+            message = "formulaire invalide"
+        context = { 
+            "form": form,
+            "message": message
+        }
+        return render(
+            request,
+            self.template_name,
+            context=context
+        )
 
 @login_required
 def compta(request, *args, **kwargs):
@@ -144,6 +199,9 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
             for form in exemplaires_formset:
                 if form.cleaned_data:
                     form.save()
+                    message = "tableau d'exemplaires sauvegardé"
+        else:
+            message = "données invalides"
         exemplaires_stat = Calcul().exemplaires_stat(exemplaires)
         if not exemplaires_stat["en_stock"]: # if no exemplaire left the cassette is sold out
             cassette = Cassette.objects.filter(id_cassette=kwargs["id_cassette"])
@@ -157,7 +215,8 @@ class Gestion_exemplaire_detail(LoginRequiredMixin, View):
             "formset": exemplaires_formset,
             "vendeurs_stat": vendeurs_stat,
             "exemplaires_stat": exemplaires_stat,
-            "cassette_stat": cassette_stat
+            "cassette_stat": cassette_stat,
+            "message": message
         }
         return render(
             request,
