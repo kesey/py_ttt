@@ -128,7 +128,7 @@ class Vente_rapide(LoginRequiredMixin, View):
                 exemplaire.prix_vente_euros = form.cleaned_data['prix_vente_euros']
                 exemplaire.vente_remboursee = form.cleaned_data['vente_remboursee']
                 exemplaire.commentaire = form.cleaned_data['commentaire']
-                # exemplaire.save()
+                exemplaire.save()
                 message = "Exemplaire vendu"
             else:
                 cassette = Cassette.objects.filter(id_cassette=form.cleaned_data['id_cassette'].id_cassette)
