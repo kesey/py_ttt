@@ -286,8 +286,15 @@ a:hover {
 .exemplaire_table {
   margin: auto auto 44px auto;
 }
-.exemplaire_table td .numero_exemplaire {
-  width: 40px;
+.exemplaire_table th {
+  padding-bottom: 6px;
+}
+.exemplaire_table td .numero_exemplaire input {
+  text-align: center;
+  width: 50px;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
 }
 .exemplaire_table td .numero_exemplaire.select {
   width: 15px;

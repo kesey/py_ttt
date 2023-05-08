@@ -64,10 +64,14 @@
                                     {% endfor %}
                                 {% endif %}
                                 {{ field.errors.as_ul }}
-                                {% if field.label == "Numero exemplaire" %}
-                                    <input type="text" id="id_form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" name="form-{{ forloop.parentloop.counter0 }}-numero_exemplaire" value="{{ field.value }}" class="numero_exemplaire center numero_exemplaire_{{ forloop.parentloop.counter0 }}" disabled>
+                                {% if field.name == "numero_exemplaire" %}
+                                    <div class="numero_exemplaire">
+                                        {{ field }}
+                                    </div>
                                 {% elif field.name == "id_etat_exemplaire" %}
-                                    <div class="etat_exemplaire">{{ field }}</div>
+                                    <div class="etat_exemplaire">
+                                        {{ field }}
+                                    </div>
                                 {% else %}
                                     {{ field }}
                                 {% endif %}

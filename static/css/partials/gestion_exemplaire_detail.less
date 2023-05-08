@@ -7,9 +7,18 @@
 
 .exemplaire_table {
     margin: auto auto 44px auto;
+    th {
+        padding-bottom: 6px;
+    }
     td {
         .numero_exemplaire {
-            width: 40px;
+            input {
+                text-align: center;
+                width: 50px;
+                pointer-events: none;
+                -webkit-appearance: none;
+                -moz-appearance: textfield;
+            }
             &.select {
                 width: 15px;
             }

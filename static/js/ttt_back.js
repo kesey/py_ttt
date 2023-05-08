@@ -59,8 +59,10 @@ $(document).ready(function() {
                 $(this).closest(".exemplaire_tr")
                     .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea")
                     .each(function() {
-                        var name = $(this).attr("name").split("-");
-                        copyBuffer[name[name.length - 1]] = $(this).val();
+                        if (! $(this).parent().hasClass("numero_exemplaire")) {
+                            var name = $(this).attr("name").split("-");
+                            copyBuffer[name[name.length - 1]] = $(this).val();
+                        };
                     });
                 $(this).prop("checked", false);
             };
@@ -76,11 +78,13 @@ $(document).ready(function() {
             $(this).closest(".exemplaire_tr")
                 .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea")
                 .each(function() {
-                    var name = $(this).attr("name").split("-");
-                    $(this).val(copyBuffer[name[name.length - 1]]);
-                    if ($(this).parent().attr("class") === "etat_exemplaire") {
-                        color_tr($(this).val(), $(this));
-                    }
+                    if (! $(this).parent().hasClass("numero_exemplaire")) {
+                        var name = $(this).attr("name").split("-");
+                        $(this).val(copyBuffer[name[name.length - 1]]);
+                        if ($(this).parent().hasClass("etat_exemplaire")) {
+                            color_tr($(this).val(), $(this));
+                        };
+                    };
                 });
             $(this).prop("checked", false);
         });
@@ -94,5 +98,9 @@ $(document).ready(function() {
 
     $(".close_message").click(function () {
         $(this).closest(".message").hide();
+    });
+
+    $(".numero_exemplaire input").keypress(function (evt) { // disabled input for numero exemplaire
+        evt.preventDefault();
     });
 });
