@@ -91,4 +91,8 @@ $(document).ready(function() {
             });
         });
     });
+
+    $(".close_message").click(function () {
+        $(this).closest(".message").hide();
+    });
 });

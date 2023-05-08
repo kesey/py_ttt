@@ -28,7 +28,14 @@
             <button class="back_button search_button" type="submit">Rechercher</button>
         </form>
         <div>
-            <p class="message">{{ message }}</p>
+            {% if message %}
+                <div class="message center">
+                    <p class="info_message">
+                        {{ message }}
+                    </p>
+                    <i class="fa-regular fa-circle-xmark close_message"></i>
+                </div>
+            {% endif %}
             <table class="stat bl">
                 <tbody>
                     {% for result in search_results %}

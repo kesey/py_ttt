@@ -1,0 +1,18 @@
+.message {
+    margin: 20px auto;
+    background-color: @admin-yellow;
+    padding: 6px;
+    max-width: 400px;
+    .info_message {
+        display: inline-block;
+        width: 90%;
+        word-wrap: break-word;
+    }
+    .close_message {
+        float: right;
+        &:hover {
+            cursor: pointer;
+            color: @admin-second-blue;
+        }
+    }
+}

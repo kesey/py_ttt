@@ -193,9 +193,6 @@ a {
 a:hover {
   color: #333;
 }
-.message {
-  margin: 20px;
-}
 /**********************************import components-style**********************************/
 .custom_header {
   background-color: #417690;
@@ -260,6 +257,24 @@ a:hover {
 }
 .back_button:hover {
   border-radius: 5px;
+}
+.message {
+  margin: 20px auto;
+  background-color: #f5dd5d;
+  padding: 6px;
+  max-width: 400px;
+}
+.message .info_message {
+  display: inline-block;
+  width: 90%;
+  word-wrap: break-word;
+}
+.message .close_message {
+  float: right;
+}
+.message .close_message:hover {
+  cursor: pointer;
+  color: #417690;
 }
 /**********************************import partials-style************************************/
 .sub_title {
@@ -362,9 +377,16 @@ a:hover {
 .vente_rapide p {
   margin: 20px 2px;
 }
-.vente_rapide form input,
+.vente_rapide p.info_message {
+  display: inline-block;
+  width: 90%;
+}
+.vente_rapide form input {
+  padding: 4px;
+}
 .vente_rapide form select {
   padding: 4px;
+  width: 170px;
 }
 .vente_rapide form label {
   width: 120px;

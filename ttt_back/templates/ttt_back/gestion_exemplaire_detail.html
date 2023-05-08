@@ -7,9 +7,16 @@
         <a href="/admin/"> / retour à l'admin</a>
         <a href="{% url 'gestion_exemplaire' %}">retour à la liste des cassettes / </a>
     </div>
+    {% if message %}
+        <div class="message center">
+            <p class="info_message">
+                {{ message }}
+            </p>
+            <i class="fa-regular fa-circle-xmark close_message"></i>
+        </div>
+    {% endif %}
     <h2 class="sub_title">{{ cassette_stat.code }} {{ cassette_stat.titre }}</h2>
     {% include 'ttt_back/partials/stat_snippet.html' %}
-    <p class="message">{{ message }}</p>
     <form method="post">
         {% csrf_token %}
         {{ formset.non_form_errors.as_ul }}

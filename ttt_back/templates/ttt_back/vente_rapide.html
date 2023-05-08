@@ -6,7 +6,14 @@
         <a href="/admin/">retour à l'admin</a>
     </div>
     <div class="vente_rapide">
-        <p class="message">{{ message }}</p>
+        {% if message %}
+            <div class="message center">
+                <p class="info_message">
+                    {{ message }}
+                </p>
+                <i class="fa-regular fa-circle-xmark close_message"></i>
+            </div>
+        {% endif %}
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
