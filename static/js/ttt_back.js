@@ -57,12 +57,10 @@ $(document).ready(function() {
         $("input[name=copy]").each(function() {
             if ($(this).is(":checked")) {
                 $(this).closest(".exemplaire_tr")
-                    .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea")
+                    .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea").not($(".numero_exemplaire input"))
                     .each(function() {
-                        if (! $(this).parent().hasClass("numero_exemplaire")) {
-                            var name = $(this).attr("name").split("-");
-                            copyBuffer[name[name.length - 1]] = $(this).val();
-                        };
+                        var name = $(this).attr("name").split("-");
+                        copyBuffer[name[name.length - 1]] = $(this).val();
                     });
                 $(this).prop("checked", false);
             };
@@ -76,14 +74,12 @@ $(document).ready(function() {
     $("#pasteButt").click(function () {
         $("input[name=paste]:checked").each(function() {
             $(this).closest(".exemplaire_tr")
-                .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea")
+            .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea").not($(".numero_exemplaire input"))
                 .each(function() {
-                    if (! $(this).parent().hasClass("numero_exemplaire")) {
-                        var name = $(this).attr("name").split("-");
-                        $(this).val(copyBuffer[name[name.length - 1]]);
-                        if ($(this).parent().hasClass("etat_exemplaire")) {
-                            color_tr($(this).val(), $(this));
-                        };
+                    var name = $(this).attr("name").split("-");
+                    $(this).val(copyBuffer[name[name.length - 1]]);
+                    if ($(this).parent().hasClass("etat_exemplaire")) {
+                        color_tr($(this).val(), $(this));
                     };
                 });
             $(this).prop("checked", false);
