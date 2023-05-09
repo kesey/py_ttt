@@ -99,7 +99,9 @@ class Calcul:
         cassette_stat["code"] = cassette[1]
         cassette_stat["titre"] = cassette[2]
         return cassette_stat
-    
+
+
+
 class Vente_rapide(LoginRequiredMixin, View):
     template_name = "ttt_back/vente_rapide.html"
     form_class = VenteRapideForm
@@ -115,28 +117,30 @@ class Vente_rapide(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            exemplaires = Exemplaire.objects.filter(
-                Q(id_cassette=form.cleaned_data['id_cassette'].id_cassette) & 
-                Q(id_etat_exemplaire=1)
-            )
-            exemplaire = exemplaires.first()
-            if exemplaire:
-                exemplaire.id_vendeur = request.user
-                etat = EtatExemplaire.objects.filter(id_etat_exemplaire=2)
-                exemplaire.id_etat_exemplaire = etat.get()
-                exemplaire.date_vente = datetime.datetime.now().strftime("%Y-%m-%d")
-                exemplaire.prix_vente_euros = form.cleaned_data['prix_vente_euros']
-                exemplaire.vente_remboursee = form.cleaned_data['vente_remboursee']
-                exemplaire.commentaire = form.cleaned_data['commentaire']
-                exemplaire.save()
-                message = "Exemplaire vendu"
-            else:
-                cassette = Cassette.objects.filter(id_cassette=form.cleaned_data['id_cassette'].id_cassette)
-                cassette = cassette.get()
-                if not cassette.sold_out:
-                    cassette.sold_out = True
-                    cassette.save()
-                message = "Il n'y a plus d'exemplaire disponible"
+            nombre_vente = 0
+            for loop in range(form.cleaned_data['nombres_exemplaires']):
+                exemplaire = Exemplaire.objects.filter(
+                    Q(id_cassette=form.cleaned_data['id_cassette'].id_cassette) & 
+                    Q(id_etat_exemplaire=1)
+                ).first()
+                if exemplaire:
+                    exemplaire.id_vendeur = request.user
+                    etat = EtatExemplaire.objects.filter(id_etat_exemplaire=2)
+                    exemplaire.id_etat_exemplaire = etat.get()
+                    exemplaire.date_vente = datetime.datetime.now().strftime("%Y-%m-%d")
+                    exemplaire.prix_vente_euros = form.cleaned_data['prix_vente_euros']
+                    exemplaire.vente_remboursee = form.cleaned_data['vente_remboursee']
+                    exemplaire.commentaire = form.cleaned_data['commentaire']
+                    exemplaire.save()
+                    nombre_vente += 1
+                else:
+                    cassette = Cassette.objects.filter(id_cassette=form.cleaned_data['id_cassette'].id_cassette)
+                    cassette = cassette.get()
+                    if not cassette.sold_out:
+                        cassette.sold_out = True
+                        cassette.save()
+                    break
+            message = f"{ nombre_vente } Exemplaire(s) vendu(s)"
         else:
             message = "formulaire invalide"
         context = { 

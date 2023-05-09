@@ -390,6 +390,7 @@ a:hover {
 }
 .vente_rapide form input {
   padding: 4px;
+  vertical-align: bottom;
 }
 .vente_rapide form select {
   padding: 4px;

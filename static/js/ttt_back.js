@@ -54,16 +54,16 @@ $(document).ready(function() {
     let copyBuffer = new Array();
 
     $("#copyButt").click(function () {
+        $("input[name=copy]:checked").each(function() {
+            $(this).closest(".exemplaire_tr")
+                .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea").not($(".numero_exemplaire input"))
+                .each(function() {
+                    var name = $(this).attr("name").split("-");
+                    copyBuffer[name[name.length - 1]] = $(this).val();
+                });
+            $(this).prop("checked", false);
+        });
         $("input[name=copy]").each(function() {
-            if ($(this).is(":checked")) {
-                $(this).closest(".exemplaire_tr")
-                    .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea").not($(".numero_exemplaire input"))
-                    .each(function() {
-                        var name = $(this).attr("name").split("-");
-                        copyBuffer[name[name.length - 1]] = $(this).val();
-                    });
-                $(this).prop("checked", false);
-            };
             $(this).attr({
                 type: 'checkbox',
                 name: 'paste'
@@ -74,7 +74,7 @@ $(document).ready(function() {
     $("#pasteButt").click(function () {
         $("input[name=paste]:checked").each(function() {
             $(this).closest(".exemplaire_tr")
-            .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea").not($(".numero_exemplaire input"))
+                .find("input:not(.numero_exemplaire):not([type=hidden]), select, textarea").not($(".numero_exemplaire input"))
                 .each(function() {
                     var name = $(this).attr("name").split("-");
                     $(this).val(copyBuffer[name[name.length - 1]]);
@@ -85,7 +85,7 @@ $(document).ready(function() {
             $(this).prop("checked", false);
         });
         $("input[name=paste]").each(function() {
-            $("input[name=paste]").attr({
+            $(this).attr({
                 type: 'radio',
                 name: 'copy'
             });
