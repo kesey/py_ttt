@@ -93,7 +93,7 @@ $(document).ready(function() {
     });
 
     $(".close_message").click(function () {
-        $(this).closest(".message").hide();
+        $(this).closest(".message").css("display", "none");
     });
 
     $(".numero_exemplaire input").keypress(function (evt) { // disabled input for numero exemplaire
