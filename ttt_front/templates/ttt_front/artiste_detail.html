@@ -1,25 +1,42 @@
-{% extends "base_front.html" %}
 {% load ttt_front_extras %}
 
-{% block content %}
-    {% for a in artiste %}
-        <div class="row infos_container">
-            <div class="col-4 right_align image_container">
-                <h5>{{ a.nom }}</h5>
-                <img class="zoom" src="{{ a.image_artiste.url }}" title="artiste" alt="image_{{ a.nom }}">
-            </div>
-            <div class="col detail left_align" >{{ a.bio|safe }}</div>
-        </div>
-    {% endfor %}
-    <!------------------------------------------------------------------------------release(s) produite(s) par l'artiste-------------------------------------------------------------------------------------->
-    <div class="infos_min_container">
-        {% for cassette in cassettes %}
-            <div class="show_infos min">
-                <a class="cover" href="{% url 'cassette_detail' cassette.id_cassette %}" >
-                    <img class="min_image" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}">
-                    <span class="item_infos min_info">{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</span>
-                </a>
-            </div>
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'ttt_front/partials/head_snippet.html' %}
+        {% for a in artiste %}
+            <meta property="og:title" content="{{ a.nom }}" />
+            <meta property="og:description" content="{{ a.nom }} est présent sur {% for cassette in cassettes %} {{ cassette }} {% if not forloop.last %} & {% endif %} {% endfor %}" />
+            <meta property="og:image" content="{{ a.image_artiste.url }}" />
         {% endfor %}
-    </div>
-{% endblock content %}
+    </head>
+    <body>
+        {% include 'ttt_front/partials/header_snippet.html' %}
+        <section>
+            <article class="container center">
+                {% for a in artiste %}
+                    <div class="row infos_container">
+                        <div class="col-4 right_align image_container">
+                            <h5>{{ a.nom }}</h5>
+                            <img class="zoom" src="{{ a.image_artiste.url }}" title="artiste" alt="image_{{ a.nom }}">
+                        </div>
+                        <div class="col detail left_align" >{{ a.bio|safe }}</div>
+                    </div>
+                {% endfor %}
+                <!------------------------------------------------------------------------------release(s) produite(s) par l'artiste-------------------------------------------------------------------------------------->
+                <div class="infos_min_container">
+                    {% for cassette in cassettes %}
+                        <div class="show_infos min">
+                            <a class="cover" href="{% url 'cassette_detail' cassette.id_cassette %}" >
+                                <img class="min_image" src="{{ cassette.image_pochette.url }}" title="image_pochette" alt="{{ cassette.titre }}">
+                                <span class="item_infos min_info">{{ cassette.code }} // {% for artiste in artistes|value_from_key:cassette.id_cassette %} {{ artiste }} {% endfor %} // {{ cassette.titre }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </article>
+            {% include 'ttt_front/partials/footer_snippet.html' %}
+        </section>
+        {% include 'ttt_front/partials/script_snippet.html' %}
+    </body>
+</html>
